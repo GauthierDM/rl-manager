@@ -1,4 +1,7 @@
 {
   "eu-vatira": {"mechanics":96,"gameSpeed":97,"attack":95,"defense":99,"goalkeeping":90,"mental":80,"pressure":92},
-  "eu-zen": {"mechanics":99,"gameSpeed":99,"attack":92,"defense":85,"goalkeeping":80,"mental":88,"pressure":90}
+  "eu-zen": {"mechanics":99,"gameSpeed":99,"attack":92,"defense":85,"goalkeeping":80,"mental":88,"pressure":90},
+  "eu-atow": {"mechanics":84,"gameSpeed":80,"attack":83,"defense":80,"goalkeeping":70,"mental":82,"pressure":84},
+  "eu-juicy": {"mechanics":83,"gameSpeed":81,"attack":82,"defense":81,"goalkeeping":68,"mental":81,"pressure":80},
+  "na-beastmode": {"mechanics":90,"gameSpeed":88,"attack":89,"defense":85,"goalkeeping":72,"mental":88,"pressure":86}
 }
