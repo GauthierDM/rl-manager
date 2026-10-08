@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RL Manager</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #0f1720; color: #e6edf3; }
+    input, select, button { font: inherit; padding: .5rem; margin: .25rem 0; width: 100%; box-sizing: border-box; }
+    button { background: #1f6feb; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+    #logout { width: auto; background: #444; float: right; }
+    .card { background: #161f2b; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: .3rem; border-bottom: 1px solid #26313f; text-align: left; }
+    .mine { color: #58d68d; font-weight: bold; }
+    #msg { color: #f0b429; }
+  </style>
+</head>
+<body>
+  <h1>RL Manager <button id="logout" style="display:none">Log out</button></h1>
+
+  <section id="auth" class="card" style="display:none">
+    <h2>Log in</h2>
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password (min. 6 characters)">
+    <button id="login">Log in</button>
+    <button id="signup">Create account</button>
+    <p id="msg"></p>
+  </section>
+
+  <section id="setup" class="card" style="display:none">
+    <h2>New career</h2>
+    <p>Choose the team you will manage:</p>
+    <select id="team-select"></select>
+    <button id="new-career">Start career</button>
+  </section>
+
+  <section id="game" style="display:none">
+    <div class="card">
+      <h2 id="team-title"></h2>
+      <p id="team-info"></p>
+      <button id="sim">Simulate season</button>
+    </div>
+    <div class="card">
+      <h3>Roster</h3>
+      <table id="roster"></table>
+    </div>
+    <div class="card">
+      <h3>Last season</h3>
+      <div id="results"></div>
+    </div>
+  </section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
