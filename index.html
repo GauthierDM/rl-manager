@@ -40,17 +40,37 @@
       </div>
     </div>
 
+    <details class="card info">
+      <summary><b>How the season works (click to read)</b></summary>
+
+      <h4>Vocabulary</h4>
+      <p><b>Open</b>: a regional online tournament with 16 teams from one region. Each region plays 3 Opens per split.</p>
+      <p><b>Split</b>: half of the season. Split 1 = Opens 1 to 3, split 2 = Opens 4 to 6.</p>
+      <p><b>Major</b>: an international LAN event. There are 2 per season, one at the end of each split.</p>
+      <p><b>Worlds</b>: the World Championship, the final LAN of the season, with the best teams of the year.</p>
+      <p><b>Split points</b>: points won in the Opens of one split only. They decide who goes to that split's Major, then they reset for the next split.</p>
+      <p><b>Major points</b>: points won at a Major. A Major pays double compared to an Open.</p>
+      <p><b>Total</b>: all points of the season, = points from the 6 Opens + points from the 2 Majors. The total decides who qualifies for the Worlds.</p>
+      <p><b>Top N</b>: the furthest round a team reached. Top 1 is the winner, Top 2 the finalist, Top 4 the semi-finals, Top 8 the quarter-finals, and so on.</p>
+
+      <h4>Points per place</h4>
+      <p>Open: 1st 16, 2nd 12, 3rd-4th 9, 5th-8th 6, 9th-11th 4, 12th-14th 2, 15th-16th 1.</p>
+      <p>Major (double): 1st 32, 2nd 24, 3rd-4th 18, 5th-8th 12, 9th-11th 8, 12th-14th 4, 15th-16th 2.</p>
+
+      <h4>Major qualification</h4>
+      <p>Each region sends a fixed number of teams to each Major. Inside a region, the teams with the most split points go first. The slots shown above each table are the real ones for this season.</p>
+
+      <h4>World Championship qualification</h4>
+      <p>Each region has a number of direct Worlds slots. Inside a region, the teams with the most total points take them. The region with the best Major results gets one extra slot.</p>
+      <p>If a region does not have enough teams for its slots, the best remaining teams of the season fill the empty places through the LCQ (Last Chance Qualifier). Right now the Worlds field is always full with direct slots, so the LCQ never triggers.</p>
+    </details>
+
     <div class="layout">
       <main>
         <div class="card">
           <h3>Season summary</h3>
           <div id="summary"></div>
         </div>
-        <div class="card">
-          <h3>Championship points</h3>
-          <div id="standings"></div>
-        </div>
-        <div id="brackets"></div>
         <div class="card">
           <h3>Your roster</h3>
           <div class="scroll"><table id="roster"></table></div>
@@ -62,9 +82,11 @@
       </main>
       <aside class="card sidebar">
         <h3>All players</h3>
-        <table id="all-players"></table>
+        <div class="scroll"><table id="all-players"></table></div>
       </aside>
     </div>
+
+    <div id="seasons"></div>
   </section>
 
   <script type="module" src="app.js"></script>

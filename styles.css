@@ -10,14 +10,26 @@
   --accent: #1f6feb;
   --gold: #f0b429;
   --highlight: #58d68d;
+  --thumb: #3a4a5e;
 }
 
 * { box-sizing: border-box; }
 
+/* Thin, themed scrollbars (Firefox and Chromium-based browsers) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumb) var(--card);
+}
+::-webkit-scrollbar { width: .5em; height: .5em; }
+::-webkit-scrollbar-track { background: var(--card); border-radius: .3em; }
+::-webkit-scrollbar-thumb { background: var(--thumb); border-radius: .3em; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+::-webkit-scrollbar-corner { background: var(--card); }
+
 body {
   margin: 2em auto;
   padding: 0 1em;
-  max-width: 75em;
+  max-width: 90em;
   font-family: system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -27,7 +39,7 @@ body {
 h1 { font-size: 2em; margin: .5em 0; }
 h2 { font-size: 1.5em; margin: .4em 0; }
 h3 { font-size: 1.2em; margin: .4em 0; }
-h4 { font-size: 1em; margin: .6em 0 .2em; }
+h4 { font-size: 1em; margin: .8em 0 .3em; color: var(--muted); }
 
 header { display: flex; justify-content: space-between; align-items: center; }
 
@@ -53,6 +65,7 @@ button.ghost { background: #444; }
 button:disabled { opacity: .6; cursor: wait; }
 
 .actions { display: flex; gap: .5em; flex-wrap: wrap; }
+.hint { color: var(--muted); font-size: .85em; margin: .2em 0 .6em; }
 
 .card {
   background: var(--card);
@@ -61,29 +74,91 @@ button:disabled { opacity: .6; cursor: wait; }
   margin: 1em 0;
 }
 
+details.info summary { cursor: pointer; }
+details.info p { font-size: .92em; margin: .3em 0; }
+
+/* Top zone: summary and roster on the left, all players on the right */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 20em;
+  grid-template-columns: minmax(0, 1fr) 40em;
   gap: 1em;
   align-items: start;
 }
-.sidebar {
-  position: sticky;
-  top: 1em;
-  max-height: 90vh;
-  overflow: auto;
-  margin: 1em 0;
-}
-@media (max-width: 56em) {
+.sidebar { margin: 1em 0; }
+@media (max-width: 64em) {
   .layout { grid-template-columns: 1fr; }
-  .sidebar { position: static; max-height: none; }
 }
+
+/* Full-width season zone: one block per split, then the Worlds */
+#seasons { margin-top: 1em; }
+.split-block h3 { margin-top: 0; }
+
+/* Qualification tables: 3 regions per row, full width */
+.tables {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1em;
+  margin: .5em 0 1em;
+}
+@media (max-width: 90em) {
+  .tables { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 60em) {
+  .tables { grid-template-columns: minmax(0, 1fr); }
+}
+.region { margin: 0; }
+.region h4 { color: var(--text); font-size: 1.1em; margin-top: 0; }
 
 table { width: 100%; border-collapse: collapse; font-size: .9em; }
-th, td { padding: .25em .4em; border-bottom: 1px solid var(--line); text-align: left; }
+th, td { padding: .3em .45em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+th { color: var(--muted); font-weight: 600; }
 tr.mine td { color: var(--highlight); font-weight: bold; }
+tr.qualified td { background: rgba(88, 214, 141, .08); }
 
-.scroll { overflow-x: auto; padding-bottom: .5em; }
+/* Scrollable tables: about 10 rows visible, header stays on top */
+.scroll {
+  max-height: 19em;
+  overflow: auto;
+  border-radius: .4em;
+}
+.scroll th {
+  position: sticky;
+  top: 0;
+  background: var(--card);
+  z-index: 1;
+}
+
+/* Wide content (brackets) scrolls sideways only */
+.wide { overflow-x: auto; padding-bottom: .5em; }
+
+/* Open tournaments: one collapsible block per tournament */
+details.open {
+  background: var(--match);
+  border-radius: .5em;
+  padding: .5em .8em;
+  margin: .6em 0;
+}
+details.open > summary { cursor: pointer; font-weight: 600; }
+details.open details { margin: .5em 0 .3em .4em; }
+details.open details > summary { cursor: pointer; color: var(--muted); }
+
+.ranking { list-style: none; padding: 0; margin: .3em 0; columns: 2 14em; }
+.ranking li {
+  display: flex;
+  align-items: center;
+  gap: .4em;
+  padding: .2em .3em;
+  break-inside: avoid;
+  font-size: .9em;
+}
+.ranking li.mine { color: var(--highlight); font-weight: bold; }
+.ranking .pts { margin-left: auto; color: var(--gold); }
+
+.swiss-round { margin: .3em 0; font-size: .88em; }
+.swiss-round b { color: var(--muted); }
+.swiss-game { padding: .1em .3em; }
+.swiss-game.mine { color: var(--highlight); }
+.swiss-game .w { font-weight: 700; }
 
 /* Compact brackets */
 .bracket { display: flex; gap: .6em; min-width: max-content; }
@@ -92,7 +167,7 @@ tr.mine td { color: var(--highlight); font-weight: bold; }
   flex-direction: column;
   justify-content: space-around;
   gap: .4em;
-  width: 8.5em;
+  width: 9em;
 }
 .round h5 {
   margin: 0 0 .2em;
@@ -157,6 +232,6 @@ tr.mine td { color: var(--highlight); font-weight: bold; }
   padding: .5em .8em;
   margin: .5em 0;
 }
-
+.row { margin: .25em 0; }
 .medal { display: inline-block; width: 1.6em; }
 #msg { color: var(--gold); }
