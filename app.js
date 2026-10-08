@@ -17,7 +17,6 @@ const REGION_LEVEL = { EU: 72, NA: 68, SAM: 64, OCE: 62, APAC: 58, MENA: 60 };
 const REGION_BUDGET = { EU: 1000, NA: 900, SAM: 700, OCE: 600, APAC: 600, MENA: 700 };
 const SPONSOR_RATE = 0.3;
 const PLACE_MEDALS = ["🏆", "🥈", "🥉", "🥉"];
-const ROUND_NAMES = ["Final", "Semi-finals", "Quarter-finals", "Round of 16"];
 
 // Player note (0 to 10), computed per game.
 // raw = goals + 0.8 x saves + 0.002 x points. perf = raw / average raw of the 6 players in the game.
@@ -250,6 +249,7 @@ const ordinal = (n) => {
 // Sort teams by points (from an object id -> points), then by rating.
 const sortByPoints = (list, points) => [...list].sort((a, b) => (points[b.id] - points[a.id]) || b.rating - a.rating);
 
+const ROUND_NAMES = ["Final", "Semi-finals", "Quarter-finals", "Round of 16"];
 function roundName(r, count) {
   return ROUND_NAMES[count - 1 - r] ?? `Round ${r + 1}`;
 }
@@ -274,6 +274,36 @@ function bracketHTML(rounds, uid) {
     .map((matches, r) => `<div class="round"><h5>${roundName(r, rounds.length)}</h5>${matches.map((m) => matchHTML(m, uid)).join("")}</div>`)
     .join("");
   return `<div class="wide"><div class="bracket">${cols}</div></div>`;
+}
+
+// Match produced by the tournament engine (teamA, teamB, label, round, winnerId).
+function engineMatchHTML(m, uid) {
+  const row = (id, score) => {
+    const t = teamById(id);
+    const won = m.winnerId === id;
+    return `<div class="side ${won ? "win" : "lose"}">${logoHTML(t)}<span class="name">${esc(t.name)}</span><b>${score}</b></div>`;
+  };
+  const mine = m.teamA === uid || m.teamB === uid ? " mine" : "";
+  return `<div class="match${mine}">
+    <div class="match-label">${esc(m.label)} · BO${m.bestOf}</div>
+    ${row(m.teamA, m.scoreA)}${row(m.teamB, m.scoreB)}
+  </div>`;
+}
+
+// Displays each engine bracket on its own (GSL groups, Top 6), one column per round.
+function stageMatchesHTML(brackets, uid, titles) {
+  return `<div class="stages">${brackets
+    .map((b, i) => {
+      const byRound = {};
+      for (const m of b.matches) (byRound[m.round] ??= []).push(m);
+      const cols = Object.keys(byRound)
+        .map(Number)
+        .sort((x, y) => x - y)
+        .map((r) => `<div class="round"><h5>Round ${r}</h5>${byRound[r].map((m) => engineMatchHTML(m, uid)).join("")}</div>`)
+        .join("");
+      return `<div class="stage"><h4>${esc(titles[i] ?? b.id)}</h4><div class="wide"><div class="bracket">${cols}</div></div></div>`;
+    })
+    .join("")}</div>`;
 }
 
 // Swiss stage: grouped by round, one line per match, winner in bold.
@@ -444,12 +474,15 @@ function worldsBlockHTML(result, team) {
   const tables = REGION_ORDER.filter((r) => teams.some((t) => t.region === r))
     .map((r) => worldsRegionCard(result, team, r))
     .join("");
+  const stages = result.worlds.brackets
+    ? stageMatchesHTML(result.worlds.brackets, team.id, ["Group A (GSL)", "Group B (GSL)", "Top 6 playoffs"])
+    : "";
   return `<section class="card split-block">
     <h3>World Championship</h3>
     <h4>Worlds qualification (total season points)</h4>
     <div class="tables">${tables}</div>
-    <h4>Worlds bracket</h4>
-    ${bracketHTML(result.worlds.rounds, team.id)}
+    <h4>Worlds stages</h4>
+    ${stages}
   </section>`;
 }
 

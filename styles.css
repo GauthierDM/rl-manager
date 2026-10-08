@@ -235,3 +235,13 @@ details.open details > summary { cursor: pointer; color: var(--muted); }
 .row { margin: .25em 0; }
 .medal { display: inline-block; width: 1.6em; }
 #msg { color: var(--gold); }
+
+/* Worlds stages (engine brackets) */
+.match-label {
+  color: var(--muted);
+  font-size: .65em;
+  text-transform: uppercase;
+  padding: 0 .3em .15em;
+}
+.stage { margin: 1em 0; }
+.stage h4 { color: var(--text); }
