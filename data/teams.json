@@ -1,82 +1,1826 @@
 [
-{"id":"karmine-corp","name":"Karmine Corp","region":"EU","players":[{"id":"eu-vatira","name":"Vatira"},{"id":"eu-atow","name":"Atow"},{"id":"eu-juicy","name":"Juicy"}]},
-{"id":"gentle-mates","name":"Gentle Mates","region":"EU","players":[{"id":"eu-archie","name":"Archie"},{"id":"eu-nass","name":"nass"},{"id":"eu-oski","name":"Oski"}]},
-{"id":"team-vitality","name":"Team Vitality","region":"EU","players":[{"id":"eu-zen","name":"Zen"},{"id":"eu-exotiik","name":"ExoTiiK"},{"id":"eu-stizzy","name":"Stizzy"}]},
-{"id":"ninjas-in-pyjamas","name":"Ninjas in Pyjamas","region":"EU","players":[{"id":"eu-joreuz","name":"Joreuz"},{"id":"eu-crr","name":"crr"},{"id":"eu-oaly","name":"Oaly"}]},
-{"id":"manchester-city-esports","name":"Manchester City Esports","region":"EU","players":[{"id":"eu-seikoo","name":"Seikoo"},{"id":"eu-ejby","name":"ejby"},{"id":"eu-accro","name":"accro"}]},
-{"id":"geekay-esports","name":"Geekay Esports","region":"EU","players":[{"id":"eu-apparentlyjack","name":"ApparentlyJack"},{"id":"eu-joyo","name":"Joyo"},{"id":"eu-mtzr","name":"mtzR"}]},
-{"id":"magnifico","name":"Magnifico","region":"EU","players":[{"id":"eu-atomik","name":"AtomiK"},{"id":"eu-rezears","name":"Rezears"},{"id":"eu-tox","name":"Tox"}]},
-{"id":"novo-esports","name":"NOVO Esports","region":"EU","players":[{"id":"eu-acronik","name":"AcroniK."},{"id":"eu-nico","name":"Nico"},{"id":"eu-giuk","name":"GiuK"}]},
-{"id":"gentlebench","name":"GentleBench","region":"EU","players":[{"id":"eu-radosin","name":"Radosin"},{"id":"eu-yujin","name":"yujin"},{"id":"eu-tempoh","name":"TempoH"}]},
-{"id":"team-bsk","name":"Team BSK","region":"EU","players":[{"id":"eu-whiisky","name":"Whiisky"},{"id":"eu-tehqqqe","name":"TehQqqe"},{"id":"eu-tho","name":"ThO."}]},
-{"id":"ght","name":"GHT","region":"EU","players":[{"id":"eu-tms","name":"tms"},{"id":"eu-hydree","name":"Hydree"},{"id":"eu-gramma","name":"Gramma"}]},
-{"id":"wip-esports","name":"WIP Esports","region":"EU","players":[{"id":"eu-ivan","name":"Ivan"},{"id":"eu-stake","name":"Stake"},{"id":"eu-dmented","name":"DmentEd"}]},
-{"id":"dreifach-reset","name":"Dreifach-Reset","region":"EU","players":[{"id":"eu-vorceful","name":"vorceful"},{"id":"eu-ne0n","name":"Ne0n"},{"id":"eu-motion","name":"motion"}]},
-{"id":"hogan-mode","name":"Hogan Mode","region":"EU","players":[{"id":"eu-growlii","name":"Growlii"},{"id":"eu-rehzzy","name":"rehzzy"},{"id":"eu-rxii","name":"Rxii"}]},
-{"id":"sonics","name":"Sonics","region":"EU","players":[{"id":"eu-toxiic","name":"Toxiic"},{"id":"eu-mikeboy","name":"Mikeboy"},{"id":"eu-smokez","name":"Smokez"}]},
-{"id":"cloud-esport","name":"Cloud eSport","region":"EU","players":[{"id":"eu-jweyts","name":"JWeyts"},{"id":"eu-badnezz","name":"badnezz"},{"id":"eu-wozyen","name":"wozyen"}]},
-{"id":"nrg","name":"NRG","region":"NA","players":[{"id":"na-atomic","name":"Atomic"},{"id":"na-beastmode","name":"BeastMode"},{"id":"na-daniel","name":"Daniel"}]},
-{"id":"shopify-rebellion","name":"Shopify Rebellion","region":"NA","players":[{"id":"na-firstkiller","name":"Firstkiller"},{"id":"na-2piece","name":"2Piece"},{"id":"na-paarth","name":"Paarth"}]},
-{"id":"spacestation-gaming","name":"Spacestation Gaming","region":"NA","players":[{"id":"na-lj","name":"Lj"},{"id":"na-chicago","name":"Chicago"},{"id":"na-hockser","name":"hockser"}]},
-{"id":"virtuspro","name":"Virtus.pro","region":"NA","players":[{"id":"na-chronic","name":"Chronic"},{"id":"na-cheese","name":"CHEESE"},{"id":"na-jstn","name":"jstn."}]},
-{"id":"fut-esports","name":"FUT Esports","region":"NA","players":[{"id":"na-wahvey","name":"Wahvey"},{"id":"na-tawk","name":"Tawk"},{"id":"na-kofyr","name":"kofyr"}]},
-{"id":"geng-mobil-1-racing","name":"Gen.G Mobil 1 Racing","region":"NA","players":[{"id":"na-retals","name":"Retals"},{"id":"na-majicbear","name":"majicbear"},{"id":"na-ayyjayy","name":"AyyJayy"}]},
-{"id":"dignitas","name":"Dignitas","region":"NA","players":[{"id":"na-arsenal","name":"Arsenal"},{"id":"na-evoh","name":"Evoh"},{"id":"na-gyro","name":"Gyro."}]},
-{"id":"lotus-8-esports","name":"Lotus 8 Esports","region":"NA","players":[{"id":"na-alraz","name":"AlRaz"},{"id":"na-kinseh","name":"Kinseh"},{"id":"na-andy","name":"Andy"}]},
-{"id":"m80","name":"M80","region":"NA","players":[{"id":"na-nass","name":"Nass"},{"id":"na-reveal","name":"reveal"},{"id":"na-zach","name":"zach"}]},
-{"id":"strictly-business","name":"Strictly Business","region":"NA","players":[{"id":"na-lionblaze","name":"LionBlaze"},{"id":"na-zineel","name":"Zineel"},{"id":"na-percy","name":"Percy."}]},
-{"id":"shuffles-kittens","name":"SHUFFLE'S KITTENS","region":"NA","players":[{"id":"na-sosa","name":"Sosa"},{"id":"na-kraziks","name":"kraziks"},{"id":"na-blaze","name":"blaze"}]},
-{"id":"team-silenced","name":"Team Silenced","region":"NA","players":[{"id":"na-taroco","name":"Taroco"},{"id":"na-missing-team-silenced","name":"Missing Player"},{"id":"na-aris","name":"aris"}]},
-{"id":"next2nu-esports","name":"Next2Nu Esports","region":"NA","players":[{"id":"na-frosty","name":"Frosty"},{"id":"na-scruf","name":"scruF"},{"id":"na-missing-next2nu","name":"Missing Player"}]},
-{"id":"unreal-nightmare","name":"Unreal Nightmare","region":"NA","players":[{"id":"na-fiveup","name":"FiveUp"},{"id":"na-tuster","name":"Tuster"},{"id":"na-fabe","name":"Fabe"}]},
-{"id":"krakenseas","name":"KrakenSeas","region":"NA","players":[{"id":"na-comm","name":"Comm"},{"id":"na-noly","name":"Noly"},{"id":"na-jknaps","name":"JKnaps"}]},
-{"id":"90210","name":"90210","region":"NA","players":[{"id":"na-squishymuffinz","name":"SquishyMuffinz"},{"id":"na-aqua","name":"Aqua"},{"id":"na-gimmick","name":"Gimmick"}]},
-{"id":"team-falcons","name":"Team Falcons","region":"MENA","players":[{"id":"mena-rw9","name":"RW9"},{"id":"mena-kiileerrz","name":"Kiileerrz"},{"id":"mena-dralii","name":"dralii"}]},
-{"id":"twisted-minds","name":"Twisted Minds","region":"MENA","players":[{"id":"mena-trk511","name":"trk511"},{"id":"mena-nwpo","name":"Nwpo"},{"id":"mena-m0nkeym00n","name":"M0nkey M00n"}]},
-{"id":"roc-esports","name":"ROC Esports","region":"MENA","players":[{"id":"mena-smw","name":"smw"},{"id":"mena-faisal","name":"Faisal"},{"id":"mena-b2","name":"B2"}]},
-{"id":"team-vision","name":"Team Vision","region":"MENA","players":[{"id":"mena-venom","name":"Venom"},{"id":"mena-t7lm","name":"T7LM"},{"id":"mena-ops","name":"Ops"}]},
-{"id":"al-qadsiah","name":"Al Qadsiah","region":"MENA","players":[{"id":"mena-nadr","name":"Nadr"},{"id":"mena-ix","name":"ix"},{"id":"mena-drknown","name":"Drknown"}]},
-{"id":"r8-esports","name":"R8 Esports","region":"MENA","players":[{"id":"mena-suspect","name":"Suspect"},{"id":"mena-legend","name":"Legend"},{"id":"mena-motawaq","name":"Motawaq"}]},
-{"id":"team-reds","name":"Team Reds","region":"MENA","players":[{"id":"mena-mesho","name":"Mesho"},{"id":"mena-imp","name":"Imp"},{"id":"mena-ams","name":"Ams"}]},
-{"id":"rule-one","name":"Rule One","region":"MENA","players":[{"id":"mena-khalid","name":"Khalid"},{"id":"mena-ahmad","name":"Ahmad"},{"id":"mena-senzo","name":"Senzo"}]},
-{"id":"bravado-gaming","name":"Bravado Gaming","region":"MENA","players":[{"id":"mena-sky","name":"Sky"},{"id":"mena-snow","name":"Snow"},{"id":"mena-wi11","name":"Wi11"}]},
-{"id":"dragons-esports","name":"Dragons Esports","region":"MENA","players":[{"id":"mena-hla","name":"hla"},{"id":"mena-fahad","name":"fahad"},{"id":"mena-glorious","name":"Glorious"}]},
-{"id":"zntrx","name":"ZNTRX","region":"MENA","players":[{"id":"mena-hero","name":"Hero"},{"id":"mena-dark","name":"Dark"},{"id":"mena-axe","name":"Axe"}]},
-{"id":"atlantic-esports","name":"Atlantic Esports","region":"MENA","players":[{"id":"mena-creeper","name":"Creeper"},{"id":"mena-hmd","name":"HMD"},{"id":"mena-n9","name":"N9"}]},
-{"id":"g3-esports","name":"G3 Esports","region":"MENA","players":[{"id":"mena-m7md","name":"M7md"},{"id":"mena-rayan","name":"Rayan"},{"id":"mena-ali","name":"Ali"}]},
-{"id":"oreo","name":"Oreo","region":"MENA","players":[{"id":"mena-z9","name":"Z9"},{"id":"mena-exi","name":"Exi"},{"id":"mena-swift","name":"Swift"}]},
-{"id":"fog-esports","name":"FOG E-SPORTS","region":"MENA","players":[{"id":"mena-ixl","name":"ixL"},{"id":"mena-tnt","name":"Tnt"},{"id":"mena-shadow","name":"Shadow"}]},
-{"id":"sleeping","name":"Sleeping","region":"MENA","players":[{"id":"mena-ghost","name":"Ghost"},{"id":"mena-rex","name":"Rex"},{"id":"mena-skyfall","name":"Skyfall"}]},
-{"id":"pwr","name":"PWR","region":"OCE","players":[{"id":"oce-fiberr","name":"Fiberr"},{"id":"oce-gus","name":"gus"},{"id":"oce-bananahead","name":"Bananahead"}]},
-{"id":"wildcard","name":"Wildcard","region":"OCE","players":[{"id":"oce-fever","name":"Fever"},{"id":"oce-torsos","name":"Torsos"},{"id":"oce-superlachie","name":"Superlachie"}]},
-{"id":"canterbury-bankstown-bulldogs","name":"Canterbury-Bankstown Bulldogs","region":"OCE","players":[{"id":"oce-amphis","name":"Amphis"},{"id":"oce-kaka","name":"Kaka"},{"id":"oce-scrub","name":"Scrub"}]},
-{"id":"take-flyte","name":"Take Flyte","region":"OCE","players":[{"id":"oce-finn","name":"Finn"},{"id":"oce-shorez","name":"Shorez"},{"id":"oce-hntr","name":"Hntr"}]},
-{"id":"team-abyssal","name":"Team Abyssal","region":"OCE","players":[{"id":"oce-hawk","name":"Hawk"},{"id":"oce-leduck","name":"Le Duck"},{"id":"oce-bakedpotato","name":"Baked Potato"}]},
-{"id":"nokar-esport","name":"NOKAR Esport","region":"OCE","players":[{"id":"oce-mock","name":"Mock"},{"id":"oce-lax","name":"Lax"},{"id":"oce-cobbo","name":"Cobbo"}]},
-{"id":"nerve","name":"nerve","region":"OCE","players":[{"id":"oce-dez","name":"Dez"},{"id":"oce-vortexioz","name":"Vortexioz"},{"id":"oce-caleb","name":"Caleb"}]},
-{"id":"gg-gaming-game","name":"GG gaming game","region":"OCE","players":[{"id":"oce-snowy","name":"Snowy"},{"id":"oce-tom","name":"Tom"},{"id":"oce-change","name":"change"}]},
-{"id":"batman-on-wheels","name":"Batman on wheels","region":"OCE","players":[{"id":"oce-tango","name":"Tango"},{"id":"oce-zayd","name":"zayd"},{"id":"oce-spratt","name":"spratt"}]},
-{"id":"miami-metro","name":"Miami Metro","region":"OCE","players":[{"id":"oce-syli","name":"syli"},{"id":"oce-frosty","name":"frosty"},{"id":"oce-macka","name":"macka"}]},
-{"id":"aight","name":"aight","region":"OCE","players":[{"id":"oce-blade","name":"blade"},{"id":"oce-dante","name":"dante"},{"id":"oce-rexp","name":"rexp"}]},
-{"id":"team-freez","name":"Team FreeZ","region":"OCE","players":[{"id":"oce-trice","name":"trice"},{"id":"oce-slater","name":"slater"},{"id":"oce-cynic","name":"cynic"}]},
-{"id":"the-beasts-from-beyond","name":"The Beasts From Beyond","region":"OCE","players":[{"id":"oce-zeddo","name":"zeddo"},{"id":"oce-sour","name":"sour"},{"id":"oce-scarth","name":"scarth"}]},
-{"id":"bgns","name":"BGNS","region":"OCE","players":[{"id":"oce-squigly","name":"squigly"},{"id":"oce-zep","name":"zep"},{"id":"oce-cryptic","name":"cryptic"}]},
-{"id":"surge-esports","name":"Surge Esports","region":"OCE","players":[{"id":"oce-finch","name":"finch"},{"id":"oce-zenox","name":"zenox"},{"id":"oce-blitz","name":"blitz"}]},
-{"id":"club-sandwich","name":"Club Sandwich","region":"OCE","players":[{"id":"oce-storm","name":"storm"},{"id":"oce-levcn","name":"levcn"},{"id":"oce-orang","name":"Orang"}]},
-{"id":"tsm","name":"TSM","region":"APAC","players":[{"id":"apac-catalysm","name":"Catalysm"},{"id":"apac-kevin","name":"Kevin"},{"id":"apac-sphinx","name":"Sphinx"}]},
-{"id":"kinotrope-gaming","name":"KINOTROPE gaming","region":"APAC","players":[{"id":"apac-kash","name":"Kash"},{"id":"apac-maxeew","name":"Maxeew"},{"id":"apac-virtuoso","name":"virtuoso"}]},
-{"id":"3cats","name":"3CATS","region":"APAC","players":[{"id":"apac-realize","name":"ReaLize"},{"id":"apac-lct","name":"LCT"},{"id":"apac-kamii","name":"Kamii"}]},
-{"id":"northstar","name":"NORTHSTAR","region":"APAC","players":[{"id":"apac-lunatic","name":"Lunatic"},{"id":"apac-mikan","name":"mikan"},{"id":"apac-burn","name":"Burn"}]},
-{"id":"jungle-juicers","name":"Jungle Juicers","region":"APAC","players":[{"id":"apac-olds","name":"OLDS"},{"id":"apac-mitsuhide","name":"mitsuhide"},{"id":"apac-abis","name":"abis"}]},
-{"id":"god-speed","name":"God Speed","region":"APAC","players":[{"id":"apac-sigms","name":"sigms"},{"id":"apac-doom","name":"doom"},{"id":"apac-popcorn","name":"popcorn"}]},
-{"id":"dreamstation","name":"Dreamstation","region":"APAC","players":[{"id":"apac-tenuki","name":"tenuki"},{"id":"apac-maru","name":"maru"},{"id":"apac-shaolon","name":"Shaolon"}]},
-{"id":"nagatomo-ninjas","name":"Nagatomo Ninjas","region":"APAC","players":[{"id":"apac-nemoto","name":"Nemoto"},{"id":"apac-tetu","name":"tetu"},{"id":"apac-kanaru","name":"Kanaru"}]},
-{"id":"rhhs","name":"RHHS","region":"APAC","players":[{"id":"apac-aris","name":"aris"},{"id":"apac-riya","name":"riya"},{"id":"apac-hire","name":"hire"}]},
-{"id":"bearclaw-gaming","name":"BearClaw Gaming","region":"APAC","players":[{"id":"apac-akira","name":"akira"},{"id":"apac-kuro","name":"kuro"},{"id":"apac-ree","name":"ree"}]},
-{"id":"ground-zero-gaming-apac","name":"Ground Zero Gaming (APAC)","region":"APAC","players":[{"id":"apac-zen","name":"zen"},{"id":"apac-tinny","name":"Tinny"},{"id":"apac-nai","name":"nai"}]},
-{"id":"sailing-esports","name":"Sailing Esports","region":"APAC","players":[{"id":"apac-jb0x","name":"jB0X"},{"id":"apac-furlashh","name":"furlashh"},{"id":"apac-blue","name":"Blue"}]},
-{"id":"sigmawolfgang","name":"Sigmawolfgang","region":"APAC","players":[{"id":"apac-omexy","name":"Omexy"},{"id":"apac-awkwavey","name":"Awkwavey"},{"id":"apac-bunnydummy","name":"BunnyDummy"}]},
-{"id":"eighty-six","name":"eighty-six","region":"APAC","players":[{"id":"apac-fk9","name":"fk9."},{"id":"apac-mildpork","name":"mildpork"},{"id":"apac-ruztybolt","name":"RuztyBolt"}]},
-{"id":"uhuh","name":"UHUH","region":"APAC","players":[{"id":"apac-vhroom","name":"Vhroom"},{"id":"apac-eco","name":"eco"},{"id":"apac-tank","name":"Tank"}]},
-{"id":"gracesblaze","name":"GracesBlaze","region":"APAC","players":[{"id":"apac-madhin","name":"Madhin"},{"id":"apac-hashir","name":"hashir"},{"id":"apac-zeyqoh","name":"Zeyqoh"}]}
+    {
+        "id": "karmine-corp",
+        "name": "Karmine Corp",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-vatira",
+                "name": "Vatira"
+            },
+            {
+                "id": "eu-atow",
+                "name": "Atow"
+            },
+            {
+                "id": "eu-juicy",
+                "name": "Juicy"
+            }
+        ]
+    },
+    {
+        "id": "gentle-mates",
+        "name": "Gentle Mates",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-archie",
+                "name": "Archie"
+            },
+            {
+                "id": "eu-nass",
+                "name": "nass"
+            },
+            {
+                "id": "eu-oski",
+                "name": "Oski"
+            }
+        ]
+    },
+    {
+        "id": "team-vitality",
+        "name": "Team Vitality",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-zen",
+                "name": "Zen"
+            },
+            {
+                "id": "eu-exotiik",
+                "name": "ExoTiiK"
+            },
+            {
+                "id": "eu-stizzy",
+                "name": "Stizzy"
+            }
+        ]
+    },
+    {
+        "id": "ninjas-in-pyjamas",
+        "name": "Ninjas in Pyjamas",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-joreuz",
+                "name": "Joreuz"
+            },
+            {
+                "id": "eu-crr",
+                "name": "crr"
+            },
+            {
+                "id": "eu-oaly",
+                "name": "Oaly"
+            }
+        ]
+    },
+    {
+        "id": "manchester-city-esports",
+        "name": "Manchester City Esports",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-seikoo",
+                "name": "Seikoo"
+            },
+            {
+                "id": "eu-ejby",
+                "name": "ejby"
+            },
+            {
+                "id": "eu-accro",
+                "name": "accro"
+            }
+        ]
+    },
+    {
+        "id": "geekay-esports",
+        "name": "Geekay Esports",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-apparentlyjack",
+                "name": "ApparentlyJack"
+            },
+            {
+                "id": "eu-joyo",
+                "name": "Joyo"
+            },
+            {
+                "id": "eu-mtzr",
+                "name": "mtzR"
+            }
+        ]
+    },
+    {
+        "id": "magnifico",
+        "name": "Magnifico",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-atomik",
+                "name": "AtomiK"
+            },
+            {
+                "id": "eu-rezears",
+                "name": "Rezears"
+            },
+            {
+                "id": "eu-tox",
+                "name": "Tox"
+            }
+        ]
+    },
+    {
+        "id": "novo-esports",
+        "name": "NOVO Esports",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-acronik",
+                "name": "AcroniK."
+            },
+            {
+                "id": "eu-nico",
+                "name": "Nico"
+            },
+            {
+                "id": "eu-giuk",
+                "name": "GiuK"
+            }
+        ]
+    },
+    {
+        "id": "gentlebench",
+        "name": "GentleBench",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-radosin",
+                "name": "Radosin"
+            },
+            {
+                "id": "eu-yujin",
+                "name": "yujin"
+            },
+            {
+                "id": "eu-tempoh",
+                "name": "TempoH"
+            }
+        ]
+    },
+    {
+        "id": "team-bsk",
+        "name": "Team BSK",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-whiisky",
+                "name": "Whiisky"
+            },
+            {
+                "id": "eu-tehqqqe",
+                "name": "TehQqqe"
+            },
+            {
+                "id": "eu-tho",
+                "name": "ThO."
+            }
+        ]
+    },
+    {
+        "id": "ght",
+        "name": "GHT",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-tms",
+                "name": "tms"
+            },
+            {
+                "id": "eu-hydree",
+                "name": "Hydree"
+            },
+            {
+                "id": "eu-gramma",
+                "name": "Gramma"
+            }
+        ]
+    },
+    {
+        "id": "wip-esports",
+        "name": "WIP Esports",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-ivan",
+                "name": "Ivan"
+            },
+            {
+                "id": "eu-stake",
+                "name": "Stake"
+            },
+            {
+                "id": "eu-dmented",
+                "name": "DmentEd"
+            }
+        ]
+    },
+    {
+        "id": "dreifach-reset",
+        "name": "Dreifach-Reset",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-vorceful",
+                "name": "vorceful"
+            },
+            {
+                "id": "eu-ne0n",
+                "name": "Ne0n"
+            },
+            {
+                "id": "eu-motion",
+                "name": "motion"
+            }
+        ]
+    },
+    {
+        "id": "hogan-mode",
+        "name": "Hogan Mode",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-growlii",
+                "name": "Growlii"
+            },
+            {
+                "id": "eu-rehzzy",
+                "name": "rehzzy"
+            },
+            {
+                "id": "eu-rxii",
+                "name": "Rxii"
+            }
+        ]
+    },
+    {
+        "id": "sonics",
+        "name": "Sonics",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-toxiic",
+                "name": "Toxiic"
+            },
+            {
+                "id": "eu-mikeboy",
+                "name": "Mikeboy"
+            },
+            {
+                "id": "eu-smokez",
+                "name": "Smokez"
+            }
+        ]
+    },
+    {
+        "id": "cloud-esport",
+        "name": "Cloud eSport",
+        "region": "EU",
+        "players": [
+            {
+                "id": "eu-jweyts",
+                "name": "JWeyts"
+            },
+            {
+                "id": "eu-badnezz",
+                "name": "badnezz"
+            },
+            {
+                "id": "eu-wozyen",
+                "name": "wozyen"
+            }
+        ]
+    },
+    {
+        "id": "nrg",
+        "name": "NRG",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-atomic",
+                "name": "Atomic"
+            },
+            {
+                "id": "na-beastmode",
+                "name": "BeastMode"
+            },
+            {
+                "id": "na-daniel",
+                "name": "Daniel"
+            }
+        ]
+    },
+    {
+        "id": "shopify-rebellion",
+        "name": "Shopify Rebellion",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-firstkiller",
+                "name": "Firstkiller"
+            },
+            {
+                "id": "na-2piece",
+                "name": "2Piece"
+            },
+            {
+                "id": "na-paarth",
+                "name": "Paarth"
+            }
+        ]
+    },
+    {
+        "id": "spacestation-gaming",
+        "name": "Spacestation Gaming",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-lj",
+                "name": "Lj"
+            },
+            {
+                "id": "na-chicago",
+                "name": "Chicago"
+            },
+            {
+                "id": "na-hockser",
+                "name": "hockser"
+            }
+        ]
+    },
+    {
+        "id": "virtuspro",
+        "name": "Virtus.pro",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-chronic",
+                "name": "Chronic"
+            },
+            {
+                "id": "na-cheese",
+                "name": "CHEESE"
+            },
+            {
+                "id": "na-jstn",
+                "name": "jstn."
+            }
+        ]
+    },
+    {
+        "id": "fut-esports",
+        "name": "FUT Esports",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-wahvey",
+                "name": "Wahvey"
+            },
+            {
+                "id": "na-tawk",
+                "name": "Tawk"
+            },
+            {
+                "id": "na-kofyr",
+                "name": "kofyr"
+            }
+        ]
+    },
+    {
+        "id": "geng-mobil-1-racing",
+        "name": "Gen.G Mobil 1 Racing",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-retals",
+                "name": "Retals"
+            },
+            {
+                "id": "na-majicbear",
+                "name": "majicbear"
+            },
+            {
+                "id": "na-ayyjayy",
+                "name": "AyyJayy"
+            }
+        ]
+    },
+    {
+        "id": "dignitas",
+        "name": "Dignitas",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-arsenal",
+                "name": "Arsenal"
+            },
+            {
+                "id": "na-evoh",
+                "name": "Evoh"
+            },
+            {
+                "id": "na-gyro",
+                "name": "Gyro."
+            }
+        ]
+    },
+    {
+        "id": "lotus-8-esports",
+        "name": "Lotus 8 Esports",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-alraz",
+                "name": "AlRaz"
+            },
+            {
+                "id": "na-kinseh",
+                "name": "Kinseh"
+            },
+            {
+                "id": "na-andy",
+                "name": "Andy"
+            }
+        ]
+    },
+    {
+        "id": "m80",
+        "name": "M80",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-nass",
+                "name": "Nass"
+            },
+            {
+                "id": "na-reveal",
+                "name": "reveal"
+            },
+            {
+                "id": "na-zach",
+                "name": "zach"
+            }
+        ]
+    },
+    {
+        "id": "strictly-business",
+        "name": "Strictly Business",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-lionblaze",
+                "name": "LionBlaze"
+            },
+            {
+                "id": "na-zineel",
+                "name": "Zineel"
+            },
+            {
+                "id": "na-percy",
+                "name": "Percy."
+            }
+        ]
+    },
+    {
+        "id": "shuffles-kittens",
+        "name": "SHUFFLE'S KITTENS",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-sosa",
+                "name": "Sosa"
+            },
+            {
+                "id": "na-kraziks",
+                "name": "kraziks"
+            },
+            {
+                "id": "na-blaze",
+                "name": "blaze"
+            }
+        ]
+    },
+    {
+        "id": "team-silenced",
+        "name": "Team Silenced",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-taroco",
+                "name": "Taroco"
+            },
+            {
+                "id": "na-missing-team-silenced",
+                "name": "Missing Player"
+            },
+            {
+                "id": "na-aris",
+                "name": "aris"
+            }
+        ]
+    },
+    {
+        "id": "next2nu-esports",
+        "name": "Next2Nu Esports",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-frosty",
+                "name": "Frosty"
+            },
+            {
+                "id": "na-scruf",
+                "name": "scruF"
+            },
+            {
+                "id": "na-missing-next2nu",
+                "name": "Missing Player"
+            }
+        ]
+    },
+    {
+        "id": "unreal-nightmare",
+        "name": "Unreal Nightmare",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-fiveup",
+                "name": "FiveUp"
+            },
+            {
+                "id": "na-tuster",
+                "name": "Tuster"
+            },
+            {
+                "id": "na-fabe",
+                "name": "Fabe"
+            }
+        ]
+    },
+    {
+        "id": "krakenseas",
+        "name": "KrakenSeas",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-comm",
+                "name": "Comm"
+            },
+            {
+                "id": "na-noly",
+                "name": "Noly"
+            },
+            {
+                "id": "na-jknaps",
+                "name": "JKnaps"
+            }
+        ]
+    },
+    {
+        "id": "90210",
+        "name": "90210",
+        "region": "NA",
+        "players": [
+            {
+                "id": "na-squishymuffinz",
+                "name": "SquishyMuffinz"
+            },
+            {
+                "id": "na-aqua",
+                "name": "Aqua"
+            },
+            {
+                "id": "na-gimmick",
+                "name": "Gimmick"
+            }
+        ]
+    },
+    {
+        "id": "team-falcons",
+        "name": "Team Falcons",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-rw9",
+                "name": "RW9"
+            },
+            {
+                "id": "mena-kiileerrz",
+                "name": "Kiileerrz"
+            },
+            {
+                "id": "mena-dralii",
+                "name": "dralii"
+            }
+        ]
+    },
+    {
+        "id": "twisted-minds",
+        "name": "Twisted Minds",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-trk511",
+                "name": "trk511"
+            },
+            {
+                "id": "mena-nwpo",
+                "name": "Nwpo"
+            },
+            {
+                "id": "mena-m0nkeym00n",
+                "name": "M0nkey M00n"
+            }
+        ]
+    },
+    {
+        "id": "roc-esports",
+        "name": "ROC Esports",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-smw",
+                "name": "smw"
+            },
+            {
+                "id": "mena-faisal",
+                "name": "Faisal"
+            },
+            {
+                "id": "mena-b2",
+                "name": "B2"
+            }
+        ]
+    },
+    {
+        "id": "team-vision",
+        "name": "Team Vision",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-venom",
+                "name": "Venom"
+            },
+            {
+                "id": "mena-t7lm",
+                "name": "T7LM"
+            },
+            {
+                "id": "mena-ops",
+                "name": "Ops"
+            }
+        ]
+    },
+    {
+        "id": "al-qadsiah",
+        "name": "Al Qadsiah",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-nadr",
+                "name": "Nadr"
+            },
+            {
+                "id": "mena-ix",
+                "name": "ix"
+            },
+            {
+                "id": "mena-drknown",
+                "name": "Drknown"
+            }
+        ]
+    },
+    {
+        "id": "r8-esports",
+        "name": "R8 Esports",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-suspect",
+                "name": "Suspect"
+            },
+            {
+                "id": "mena-legend",
+                "name": "Legend"
+            },
+            {
+                "id": "mena-motawaq",
+                "name": "Motawaq"
+            }
+        ]
+    },
+    {
+        "id": "team-reds",
+        "name": "Team Reds",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-mesho",
+                "name": "Mesho"
+            },
+            {
+                "id": "mena-imp",
+                "name": "Imp"
+            },
+            {
+                "id": "mena-ams",
+                "name": "Ams"
+            }
+        ]
+    },
+    {
+        "id": "rule-one",
+        "name": "Rule One",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-khalid",
+                "name": "Khalid"
+            },
+            {
+                "id": "mena-ahmad",
+                "name": "Ahmad"
+            },
+            {
+                "id": "mena-senzo",
+                "name": "Senzo"
+            }
+        ]
+    },
+    {
+        "id": "bravado-gaming",
+        "name": "Bravado Gaming",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-sky",
+                "name": "Sky"
+            },
+            {
+                "id": "mena-snow",
+                "name": "Snow"
+            },
+            {
+                "id": "mena-wi11",
+                "name": "Wi11"
+            }
+        ]
+    },
+    {
+        "id": "dragons-esports",
+        "name": "Dragons Esports",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-hla",
+                "name": "hla"
+            },
+            {
+                "id": "mena-fahad",
+                "name": "fahad"
+            },
+            {
+                "id": "mena-glorious",
+                "name": "Glorious"
+            }
+        ]
+    },
+    {
+        "id": "zntrx",
+        "name": "ZNTRX",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-hero",
+                "name": "Hero"
+            },
+            {
+                "id": "mena-dark",
+                "name": "Dark"
+            },
+            {
+                "id": "mena-axe",
+                "name": "Axe"
+            }
+        ]
+    },
+    {
+        "id": "atlantic-esports",
+        "name": "Atlantic Esports",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-creeper",
+                "name": "Creeper"
+            },
+            {
+                "id": "mena-hmd",
+                "name": "HMD"
+            },
+            {
+                "id": "mena-n9",
+                "name": "N9"
+            }
+        ]
+    },
+    {
+        "id": "g3-esports",
+        "name": "G3 Esports",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-m7md",
+                "name": "M7md"
+            },
+            {
+                "id": "mena-rayan",
+                "name": "Rayan"
+            },
+            {
+                "id": "mena-ali",
+                "name": "Ali"
+            }
+        ]
+    },
+    {
+        "id": "oreo",
+        "name": "Oreo",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-z9",
+                "name": "Z9"
+            },
+            {
+                "id": "mena-exi",
+                "name": "Exi"
+            },
+            {
+                "id": "mena-swift",
+                "name": "Swift"
+            }
+        ]
+    },
+    {
+        "id": "fog-esports",
+        "name": "FOG E-SPORTS",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-ixl",
+                "name": "ixL"
+            },
+            {
+                "id": "mena-tnt",
+                "name": "Tnt"
+            },
+            {
+                "id": "mena-shadow",
+                "name": "Shadow"
+            }
+        ]
+    },
+    {
+        "id": "sleeping",
+        "name": "Sleeping",
+        "region": "MENA",
+        "players": [
+            {
+                "id": "mena-ghost",
+                "name": "Ghost"
+            },
+            {
+                "id": "mena-rex",
+                "name": "Rex"
+            },
+            {
+                "id": "mena-skyfall",
+                "name": "Skyfall"
+            }
+        ]
+    },
+    {
+        "id": "pwr",
+        "name": "PWR",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-fiberr",
+                "name": "Fiberr"
+            },
+            {
+                "id": "oce-gus",
+                "name": "gus"
+            },
+            {
+                "id": "oce-bananahead",
+                "name": "Bananahead"
+            }
+        ]
+    },
+    {
+        "id": "wildcard",
+        "name": "Wildcard",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-fever",
+                "name": "Fever"
+            },
+            {
+                "id": "oce-torsos",
+                "name": "Torsos"
+            },
+            {
+                "id": "oce-superlachie",
+                "name": "Superlachie"
+            }
+        ]
+    },
+    {
+        "id": "canterbury-bankstown-bulldogs",
+        "name": "Canterbury-Bankstown Bulldogs",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-amphis",
+                "name": "Amphis"
+            },
+            {
+                "id": "oce-kaka",
+                "name": "Kaka"
+            },
+            {
+                "id": "oce-scrub",
+                "name": "Scrub"
+            }
+        ]
+    },
+    {
+        "id": "take-flyte",
+        "name": "Take Flyte",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-finn",
+                "name": "Finn"
+            },
+            {
+                "id": "oce-shorez",
+                "name": "Shorez"
+            },
+            {
+                "id": "oce-hntr",
+                "name": "Hntr"
+            }
+        ]
+    },
+    {
+        "id": "team-abyssal",
+        "name": "Team Abyssal",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-hawk",
+                "name": "Hawk"
+            },
+            {
+                "id": "oce-leduck",
+                "name": "Le Duck"
+            },
+            {
+                "id": "oce-bakedpotato",
+                "name": "Baked Potato"
+            }
+        ]
+    },
+    {
+        "id": "nokar-esport",
+        "name": "NOKAR Esport",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-mock",
+                "name": "Mock"
+            },
+            {
+                "id": "oce-lax",
+                "name": "Lax"
+            },
+            {
+                "id": "oce-cobbo",
+                "name": "Cobbo"
+            }
+        ]
+    },
+    {
+        "id": "nerve",
+        "name": "nerve",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-dez",
+                "name": "Dez"
+            },
+            {
+                "id": "oce-vortexioz",
+                "name": "Vortexioz"
+            },
+            {
+                "id": "oce-caleb",
+                "name": "Caleb"
+            }
+        ]
+    },
+    {
+        "id": "gg-gaming-game",
+        "name": "GG gaming game",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-snowy",
+                "name": "Snowy"
+            },
+            {
+                "id": "oce-tom",
+                "name": "Tom"
+            },
+            {
+                "id": "oce-change",
+                "name": "change"
+            }
+        ]
+    },
+    {
+        "id": "batman-on-wheels",
+        "name": "Batman on wheels",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-tango",
+                "name": "Tango"
+            },
+            {
+                "id": "oce-zayd",
+                "name": "zayd"
+            },
+            {
+                "id": "oce-spratt",
+                "name": "spratt"
+            }
+        ]
+    },
+    {
+        "id": "miami-metro",
+        "name": "Miami Metro",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-syli",
+                "name": "syli"
+            },
+            {
+                "id": "oce-frosty",
+                "name": "frosty"
+            },
+            {
+                "id": "oce-macka",
+                "name": "macka"
+            }
+        ]
+    },
+    {
+        "id": "aight",
+        "name": "aight",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-blade",
+                "name": "blade"
+            },
+            {
+                "id": "oce-dante",
+                "name": "dante"
+            },
+            {
+                "id": "oce-rexp",
+                "name": "rexp"
+            }
+        ]
+    },
+    {
+        "id": "team-freez",
+        "name": "Team FreeZ",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-trice",
+                "name": "trice"
+            },
+            {
+                "id": "oce-slater",
+                "name": "slater"
+            },
+            {
+                "id": "oce-cynic",
+                "name": "cynic"
+            }
+        ]
+    },
+    {
+        "id": "the-beasts-from-beyond",
+        "name": "The Beasts From Beyond",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-zeddo",
+                "name": "zeddo"
+            },
+            {
+                "id": "oce-sour",
+                "name": "sour"
+            },
+            {
+                "id": "oce-scarth",
+                "name": "scarth"
+            }
+        ]
+    },
+    {
+        "id": "bgns",
+        "name": "BGNS",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-squigly",
+                "name": "squigly"
+            },
+            {
+                "id": "oce-zep",
+                "name": "zep"
+            },
+            {
+                "id": "oce-cryptic",
+                "name": "cryptic"
+            }
+        ]
+    },
+    {
+        "id": "surge-esports",
+        "name": "Surge Esports",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-finch",
+                "name": "finch"
+            },
+            {
+                "id": "oce-zenox",
+                "name": "zenox"
+            },
+            {
+                "id": "oce-blitz",
+                "name": "blitz"
+            }
+        ]
+    },
+    {
+        "id": "club-sandwich",
+        "name": "Club Sandwich",
+        "region": "OCE",
+        "players": [
+            {
+                "id": "oce-storm",
+                "name": "storm"
+            },
+            {
+                "id": "oce-levcn",
+                "name": "levcn"
+            },
+            {
+                "id": "oce-orang",
+                "name": "Orang"
+            }
+        ]
+    },
+    {
+        "id": "tsm",
+        "name": "TSM",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-catalysm",
+                "name": "Catalysm"
+            },
+            {
+                "id": "apac-kevin",
+                "name": "Kevin"
+            },
+            {
+                "id": "apac-sphinx",
+                "name": "Sphinx"
+            }
+        ]
+    },
+    {
+        "id": "kinotrope-gaming",
+        "name": "KINOTROPE gaming",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-kash",
+                "name": "Kash"
+            },
+            {
+                "id": "apac-maxeew",
+                "name": "Maxeew"
+            },
+            {
+                "id": "apac-virtuoso",
+                "name": "virtuoso"
+            }
+        ]
+    },
+    {
+        "id": "3cats",
+        "name": "3CATS",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-realize",
+                "name": "ReaLize"
+            },
+            {
+                "id": "apac-lct",
+                "name": "LCT"
+            },
+            {
+                "id": "apac-kamii",
+                "name": "Kamii"
+            }
+        ]
+    },
+    {
+        "id": "northstar",
+        "name": "NORTHSTAR",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-lunatic",
+                "name": "Lunatic"
+            },
+            {
+                "id": "apac-mikan",
+                "name": "mikan"
+            },
+            {
+                "id": "apac-burn",
+                "name": "Burn"
+            }
+        ]
+    },
+    {
+        "id": "jungle-juicers",
+        "name": "Jungle Juicers",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-olds",
+                "name": "OLDS"
+            },
+            {
+                "id": "apac-mitsuhide",
+                "name": "mitsuhide"
+            },
+            {
+                "id": "apac-abis",
+                "name": "abis"
+            }
+        ]
+    },
+    {
+        "id": "god-speed",
+        "name": "God Speed",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-sigms",
+                "name": "sigms"
+            },
+            {
+                "id": "apac-doom",
+                "name": "doom"
+            },
+            {
+                "id": "apac-popcorn",
+                "name": "popcorn"
+            }
+        ]
+    },
+    {
+        "id": "dreamstation",
+        "name": "Dreamstation",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-tenuki",
+                "name": "tenuki"
+            },
+            {
+                "id": "apac-maru",
+                "name": "maru"
+            },
+            {
+                "id": "apac-shaolon",
+                "name": "Shaolon"
+            }
+        ]
+    },
+    {
+        "id": "nagatomo-ninjas",
+        "name": "Nagatomo Ninjas",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-nemoto",
+                "name": "Nemoto"
+            },
+            {
+                "id": "apac-tetu",
+                "name": "tetu"
+            },
+            {
+                "id": "apac-kanaru",
+                "name": "Kanaru"
+            }
+        ]
+    },
+    {
+        "id": "rhhs",
+        "name": "RHHS",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-aris",
+                "name": "aris"
+            },
+            {
+                "id": "apac-riya",
+                "name": "riya"
+            },
+            {
+                "id": "apac-hire",
+                "name": "hire"
+            }
+        ]
+    },
+    {
+        "id": "bearclaw-gaming",
+        "name": "BearClaw Gaming",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-akira",
+                "name": "akira"
+            },
+            {
+                "id": "apac-kuro",
+                "name": "kuro"
+            },
+            {
+                "id": "apac-ree",
+                "name": "ree"
+            }
+        ]
+    },
+    {
+        "id": "ground-zero-gaming-apac",
+        "name": "Ground Zero Gaming (APAC)",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-zen",
+                "name": "zen"
+            },
+            {
+                "id": "apac-tinny",
+                "name": "Tinny"
+            },
+            {
+                "id": "apac-nai",
+                "name": "nai"
+            }
+        ]
+    },
+    {
+        "id": "sailing-esports",
+        "name": "Sailing Esports",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-jb0x",
+                "name": "jB0X"
+            },
+            {
+                "id": "apac-furlashh",
+                "name": "furlashh"
+            },
+            {
+                "id": "apac-blue",
+                "name": "Blue"
+            }
+        ]
+    },
+    {
+        "id": "sigmawolfgang",
+        "name": "Sigmawolfgang",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-omexy",
+                "name": "Omexy"
+            },
+            {
+                "id": "apac-awkwavey",
+                "name": "Awkwavey"
+            },
+            {
+                "id": "apac-bunnydummy",
+                "name": "BunnyDummy"
+            }
+        ]
+    },
+    {
+        "id": "eighty-six",
+        "name": "eighty-six",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-fk9",
+                "name": "fk9."
+            },
+            {
+                "id": "apac-mildpork",
+                "name": "mildpork"
+            },
+            {
+                "id": "apac-ruztybolt",
+                "name": "RuztyBolt"
+            }
+        ]
+    },
+    {
+        "id": "uhuh",
+        "name": "UHUH",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-vhroom",
+                "name": "Vhroom"
+            },
+            {
+                "id": "apac-eco",
+                "name": "eco"
+            },
+            {
+                "id": "apac-tank",
+                "name": "Tank"
+            }
+        ]
+    },
+    {
+        "id": "gracesblaze",
+        "name": "GracesBlaze",
+        "region": "APAC",
+        "players": [
+            {
+                "id": "apac-madhin",
+                "name": "Madhin"
+            },
+            {
+                "id": "apac-hashir",
+                "name": "hashir"
+            },
+            {
+                "id": "apac-zeyqoh",
+                "name": "Zeyqoh"
+            }
+        ]
+    },
+    {
+        "id": "limitless",
+        "name": "Limitless",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "2die4",
+                "name": "2Die4"
+            },
+            {
+                "id": "darth",
+                "name": "Darth"
+            },
+            {
+                "id": "sweaty",
+                "name": "Sweaty"
+            }
+        ]
+    },
+    {
+        "id": "young-money-clan",
+        "name": "Young Money Clan",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "snowyy",
+                "name": "Snowyy"
+            },
+            {
+                "id": "skillsteal",
+                "name": "Skillsteal"
+            },
+            {
+                "id": "kamz",
+                "name": "Kamz"
+            }
+        ]
+    },
+    {
+        "id": "white-rabbit-gaming",
+        "name": "White Rabbit Gaming",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "daisy",
+                "name": "Daisy"
+            },
+            {
+                "id": "happymeal",
+                "name": "Happymeal"
+            },
+            {
+                "id": "wiil",
+                "name": "WiiL"
+            }
+        ]
+    },
+    {
+        "id": "bravado-gaming-ssa",
+        "name": "Bravado Gaming",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "dp",
+                "name": "DP"
+            },
+            {
+                "id": "zee9",
+                "name": "Zee9"
+            },
+            {
+                "id": "luc",
+                "name": "Luc"
+            }
+        ]
+    },
+    {
+        "id": "nixuh",
+        "name": "Nixuh",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "crane",
+                "name": "Crane"
+            },
+            {
+                "id": "schlink",
+                "name": "Schlink"
+            },
+            {
+                "id": "real",
+                "name": "ReaL"
+            }
+        ]
+    },
+    {
+        "id": "orlando-pirates-exiles",
+        "name": "Orlando Pirates Exiles",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "mrlow99",
+                "name": "MrLow99"
+            },
+            {
+                "id": "weep",
+                "name": "Weep"
+            },
+            {
+                "id": "melio",
+                "name": "Melio"
+            }
+        ]
+    },
+    {
+        "id": "astronic-esports",
+        "name": "Astronic Esports",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "eli",
+                "name": "Eli"
+            },
+            {
+                "id": "h4wk",
+                "name": "H4wk"
+            },
+            {
+                "id": "mas",
+                "name": "Mas"
+            }
+        ]
+    },
+    {
+        "id": "french-toast",
+        "name": "French Toast",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "wiz",
+                "name": "WiZ"
+            },
+            {
+                "id": "kay9",
+                "name": "Kay9"
+            },
+            {
+                "id": "zepp",
+                "name": "Zepp"
+            }
+        ]
+    },
+    {
+        "id": "sunburst",
+        "name": "Sunburst",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "zero",
+                "name": "Zero"
+            },
+            {
+                "id": "blaze",
+                "name": "Blaze"
+            },
+            {
+                "id": "strykr",
+                "name": "Strykr"
+            }
+        ]
+    },
+    {
+        "id": "knights-of-the-round",
+        "name": "Knights of the Round",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "arthur",
+                "name": "Arthur"
+            },
+            {
+                "id": "lancelot",
+                "name": "Lancelot"
+            },
+            {
+                "id": "galahad",
+                "name": "Galahad"
+            }
+        ]
+    },
+    {
+        "id": "delta-esports",
+        "name": "Delta Esports",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "kyro",
+                "name": "Kyro"
+            },
+            {
+                "id": "vex",
+                "name": "Vex"
+            },
+            {
+                "id": "shade",
+                "name": "Shade"
+            }
+        ]
+    },
+    {
+        "id": "apex-predator",
+        "name": "Apex Predator",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "talon",
+                "name": "Talon"
+            },
+            {
+                "id": "fang",
+                "name": "Fang"
+            },
+            {
+                "id": "venom",
+                "name": "Venom"
+            }
+        ]
+    },
+    {
+        "id": "valkyrie",
+        "name": "Valkyrie",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "nova",
+                "name": "Nova"
+            },
+            {
+                "id": "echo",
+                "name": "Echo"
+            },
+            {
+                "id": "pulse",
+                "name": "Pulse"
+            }
+        ]
+    },
+    {
+        "id": "ghost-recon",
+        "name": "Ghost Recon",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "phantom",
+                "name": "Phantom"
+            },
+            {
+                "id": "spectre",
+                "name": "Spectre"
+            },
+            {
+                "id": "shadow",
+                "name": "Shadow"
+            }
+        ]
+    },
+    {
+        "id": "rift-esports",
+        "name": "Rift Esports",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "void",
+                "name": "Void"
+            },
+            {
+                "id": "rift",
+                "name": "Rift"
+            },
+            {
+                "id": "vortex",
+                "name": "Vortex"
+            }
+        ]
+    },
+    {
+        "id": "outlaws",
+        "name": "Outlaws",
+        "region": "SSA",
+        "players": [
+            {
+                "id": "bandit",
+                "name": "Bandit"
+            },
+            {
+                "id": "renegade",
+                "name": "Renegade"
+            },
+            {
+                "id": "maverick",
+                "name": "Maverick"
+            }
+        ]
+    }
 ]

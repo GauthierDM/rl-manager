@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <!-- Dark background from the first paint, before styles.css loads -->
+  <style>html, body { background: #0f1720; color: #e6edf3; }</style>
   <title>RL Manager</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -31,62 +34,76 @@
   </section>
 
   <section id="game" style="display:none">
-    <div class="card">
-      <h2 id="team-title"></h2>
-      <p id="team-info"></p>
-      <div class="actions">
-        <button id="sim">Simulate season</button>
-        <button id="reset" class="danger">Reset career</button>
+    <!-- Home: team header, summary, roster, leaders, all players -->
+    <div id="home">
+      <div class="card">
+        <h2 id="team-title"></h2>
+        <p id="team-info"></p>
+        <div class="actions">
+          <button id="sim">Simulate season</button>
+          <button id="view-season" style="display:none">Watch the season</button>
+          <button id="reset" class="danger">Reset career</button>
+        </div>
+      </div>
+
+      <details class="card info">
+        <summary><b>How the season works (click to read)</b></summary>
+
+        <h4>Vocabulary</h4>
+        <p><b>Open</b>: a regional online tournament with 16 teams from one region. Each region plays 3 Opens per split.</p>
+        <p><b>Split</b>: half of the season. Split 1 = Opens 1 to 3, split 2 = Opens 4 to 6.</p>
+        <p><b>Major</b>: an international LAN event. There are 2 per season, one at the end of each split.</p>
+        <p><b>Worlds</b>: the World Championship, the final LAN of the season, with the best teams of the year.</p>
+        <p><b>Split points</b>: points won in the Opens of one split only. They decide who goes to that split's Major.</p>
+        <p><b>Total</b>: all points of the season, = points from the 6 Opens + points from the 2 Majors. The total decides who qualifies for the Worlds.</p>
+        <p><b>Top N</b>: the furthest round a team reached. Top 1 is the winner, Top 2 the finalist, Top 4 the semi-finals, Top 8 the quarter-finals, and so on.</p>
+
+        <h4>Major and Worlds format</h4>
+        <p>16 teams are split into 4 groups of 4. Each group plays 3 rounds of Bo3. The group winner goes to the Upper bracket, 2nd goes to the Lower bracket, 3rd and 4th are eliminated.</p>
+        <p>The Worlds add a play-in of 8 teams (4 reach the groups). The 12 best qualifiers go straight to the groups.</p>
+        <p>The LCQ is a regional knockout for the teams that did not qualify. Each LCQ winner goes to the Worlds play-in.</p>
+
+        <h4>Watching the season</h4>
+        <p>Click "Watch the season". Each Open of your region, each Major you qualified for, and the Worlds are shown on their own page. Use Next and Previous to move between them.</p>
+      </details>
+
+      <div class="layout">
+        <main>
+          <div class="card">
+            <h3>Season summary</h3>
+            <div id="summary"></div>
+          </div>
+          <div class="card">
+            <h3>Your roster</h3>
+            <div class="scroll"><table id="roster"></table></div>
+          </div>
+          <div class="card">
+            <h3>Leaders (last season)</h3>
+            <div id="leaders" class="leaders"></div>
+          </div>
+        </main>
+        <aside class="card sidebar">
+          <h3>All players</h3>
+          <div class="scroll"><table id="all-players"></table></div>
+        </aside>
       </div>
     </div>
 
-    <details class="card info">
-      <summary><b>How the season works (click to read)</b></summary>
-
-      <h4>Vocabulary</h4>
-      <p><b>Open</b>: a regional online tournament with 16 teams from one region. Each region plays 3 Opens per split.</p>
-      <p><b>Split</b>: half of the season. Split 1 = Opens 1 to 3, split 2 = Opens 4 to 6.</p>
-      <p><b>Major</b>: an international LAN event. There are 2 per season, one at the end of each split.</p>
-      <p><b>Worlds</b>: the World Championship, the final LAN of the season, with the best teams of the year.</p>
-      <p><b>Split points</b>: points won in the Opens of one split only. They decide who goes to that split's Major, then they reset for the next split.</p>
-      <p><b>Major points</b>: points won at a Major. A Major pays double compared to an Open.</p>
-      <p><b>Total</b>: all points of the season, = points from the 6 Opens + points from the 2 Majors. The total decides who qualifies for the Worlds.</p>
-      <p><b>Top N</b>: the furthest round a team reached. Top 1 is the winner, Top 2 the finalist, Top 4 the semi-finals, Top 8 the quarter-finals, and so on.</p>
-
-      <h4>Points per place</h4>
-      <p>Open: 1st 16, 2nd 12, 3rd-4th 9, 5th-8th 6, 9th-11th 4, 12th-14th 2, 15th-16th 1.</p>
-      <p>Major (double): 1st 32, 2nd 24, 3rd-4th 18, 5th-8th 12, 9th-11th 8, 12th-14th 4, 15th-16th 2.</p>
-
-      <h4>Major qualification</h4>
-      <p>Each region sends a fixed number of teams to each Major. Inside a region, the teams with the most split points go first. The slots shown above each table are the real ones for this season.</p>
-
-      <h4>World Championship qualification</h4>
-      <p>Each region has a number of direct Worlds slots. Inside a region, the teams with the most total points take them. The region with the best Major results gets one extra slot.</p>
-      <p>If a region does not have enough teams for its slots, the best remaining teams of the season fill the empty places through the LCQ (Last Chance Qualifier). Right now the Worlds field is always full with direct slots, so the LCQ never triggers.</p>
-    </details>
-
-    <div class="layout">
-      <main>
-        <div class="card">
-          <h3>Season summary</h3>
-          <div id="summary"></div>
+    <!-- Viewer: one page per step of the season -->
+    <div id="viewer" style="display:none">
+      <div class="card viewer-bar">
+        <button id="v-back" class="ghost">Menu</button>
+        <span id="v-progress"></span>
+        <div class="actions">
+          <button id="v-prev" class="ghost">Previous</button>
+          <button id="v-next">Next</button>
         </div>
-        <div class="card">
-          <h3>Your roster</h3>
-          <div class="scroll"><table id="roster"></table></div>
-        </div>
-        <div class="card">
-          <h3>Leaders (last season)</h3>
-          <div id="leaders" class="leaders"></div>
-        </div>
-      </main>
-      <aside class="card sidebar">
-        <h3>All players</h3>
-        <div class="scroll"><table id="all-players"></table></div>
-      </aside>
+      </div>
+      <div class="card">
+        <h2 id="v-title"></h2>
+        <div id="v-content"></div>
+      </div>
     </div>
-
-    <div id="seasons"></div>
   </section>
 
   <script type="module" src="app.js"></script>

@@ -245,3 +245,9 @@ details.open details > summary { cursor: pointer; color: var(--muted); }
 }
 .stage { margin: 1em 0; }
 .stage h4 { color: var(--text); }
+
+/* Season viewer: one page per step */
+.viewer-bar { display: flex; align-items: center; gap: .6em; flex-wrap: wrap; }
+#v-progress { color: var(--muted); margin-right: auto; }
+#v-title { margin-top: 0; }
+#view-season { background: var(--win); }

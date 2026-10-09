@@ -2,17 +2,20 @@
 // Team : { id, name, region, rating, playerIds }
 // rate(team, pressure) -> { avg, ratings } et onGame(game) sont optionnels (fournis par app.js).
 
-import { playSwissStage, playWorldsStage } from "./tournament/stages.js";
+import { LcqRegional, MajorStage, OpenStage, WorldsStage } from "./tournament/engine.js";
 
 // ---------- Règles (à modifier ici) ----------
-export const PRESSURE = { open: 0, major: 2, worlds: 3 };
+export const PRESSURE = { open: 0, major: 2, lcq: 1, worlds: 3 };
 export const OPEN_POINTS = [16, 12, 9, 9, 6, 6, 6, 6, 4, 4, 4, 2, 2, 2, 1, 1];
 export const MAJOR_MULTIPLIER = 2; // 1er au Major = 16 x 2 = 32
 export const MAJOR_SLOTS = { EU: 4, NA: 4, MENA: 2, SAM: 2, OCE: 1, APAC: 1, SSA: 1 };
 export const EXTRA_SLOT_REGION = "EU"; // reçoit le 16e slot et les slots des régions absentes
 export const WORLDS_QUOTA = { EU: 4, NA: 4, MENA: 2, SAM: 2, OCE: 1, APAC: 1, SSA: 1 };
 export const WORLDS_BONUS_SLOTS = 1; // attribué à la région la plus performante aux Majors
-export const WORLDS_SIZE = 16;
+export const WORLDS_DIRECT = 12; // seeds 1 à 12 : groupes directs
+export const PLAY_IN_SIZE = 8; // seeds 13 à 20 : play-in, 4 qualifiés pour les groupes
+export const LCQ_REGIONS = ["EU", "NA", "MENA", "SAM"]; // régions majeures avec un LCQ
+export const LCQ_ENTRANTS = 8; // non-qualifiés par LCQ régional
 
 const byRating = (x, y) => y.rating - x.rating;
 
@@ -21,7 +24,6 @@ const winChance = (ra, rb) => 1 / (1 + Math.exp(-(ra - rb) / 8));
 
 // ---------- Résolveur de série pour le moteur de tournois ----------
 // Le moteur appelle (idA, idB, bestOf) et attend { winnerId, scoreA, scoreB }.
-// Chaque manche utilise la note du moment (pression, forme) si rate est fourni.
 export function makeSeriesResolver(teamById, pressure, rate, onGame) {
   return (aId, bId, bo) => {
     const a = teamById[aId];
@@ -41,12 +43,11 @@ export function makeSeriesResolver(teamById, pressure, rate, onGame) {
   };
 }
 
-// ---------- Adaptateurs : matchs du moteur -> format attendu par app.js ----------
+// ---------- Adaptateurs (Opens) ----------
 function toMatch(m) {
   return { a: m.teamA, b: m.teamB, scoreA: m.scoreA, scoreB: m.scoreB, winner: m.winnerId };
 }
 
-// Regroupe les matchs par tour (index 0 = premier tour).
 function toRounds(matches) {
   if (!matches.length) return [];
   const count = Math.max(...matches.map((m) => m.round));
@@ -63,28 +64,23 @@ function toSwissMatches(matches) {
 // Open régional : 16 équipes. Swiss -> top 8 -> playoffs.
 export function simulateOpen(teams, playSeries, name) {
   const seeds = [...teams].sort(byRating).map((t) => t.id);
-  const stage = playSwissStage(name, name, seeds, { playSeries });
-  const [swissB, playoffB] = stage.brackets;
+  const stage = new OpenStage(name, seeds).play(playSeries).toData();
   return {
     ranking: stage.ranking,
     points: Object.fromEntries(stage.ranking.map((id, i) => [id, OPEN_POINTS[i] ?? 0])),
-    swissMatches: toSwissMatches(swissB.matches),
-    playoffRounds: toRounds(playoffB.matches),
-    brackets: stage.brackets,
+    swissMatches: toSwissMatches(stage.brackets[0].matches),
+    playoffRounds: toRounds(stage.brackets[1].matches),
   };
 }
 
-// Major : 16 équipes, même format que l'Open. Points = Open x MAJOR_MULTIPLIER.
+// Major : 4 groupes de 4 + playoffs double élimination. Points = Open x MAJOR_MULTIPLIER.
 export function simulateMajor(teams, playSeries) {
   const seeds = [...teams].sort(byRating).map((t) => t.id);
-  const stage = playSwissStage("major", "Major", seeds, { playSeries });
-  const [swissB, playoffB] = stage.brackets;
+  const stage = new MajorStage("Major", seeds).play(playSeries).toData();
   return {
     ranking: stage.ranking,
     points: Object.fromEntries(stage.ranking.map((id, i) => [id, (OPEN_POINTS[i] ?? 0) * MAJOR_MULTIPLIER])),
-    swissMatches: toSwissMatches(swissB.matches),
-    rounds: toRounds(playoffB.matches),
-    brackets: stage.brackets,
+    stage,
   };
 }
 
@@ -159,7 +155,7 @@ export function simulateSeason(teams, { season = 1, rate, onGame } = {}) {
     const splitPoints = Object.fromEntries(teams.map((t) => [t.id, 0]));
     const opens = [];
 
-    // 3 Opens par région et par split. Les 16 équipes de la région jouent les 3.
+    // 3 Opens par région et par split.
     for (const region of regions) {
       for (let k = 1; k <= 3; k++) {
         const n = (split - 1) * 3 + k;
@@ -189,36 +185,59 @@ export function simulateSeason(teams, { season = 1, rate, onGame } = {}) {
     });
   }
 
-  // Worlds : quota par région + slot bonus pour la meilleure région aux Majors.
+  // Qualifiés régionaux : quota par région + slot bonus pour la meilleure région aux Majors.
   const quota = resolveWorldsQuota(regions);
   const bonusRegion = bestRegionAtMajors(majorPts, byRegion);
   if (bonusRegion) quota[bonusRegion] = (quota[bonusRegion] ?? 0) + WORLDS_BONUS_SLOTS;
 
-  const qualifiedVia = {};
-  const direct = [];
+  const qualifiers = [];
   for (const region of regions) {
     const sorted = [...byRegion[region]].sort(byTotals);
-    const picked = sorted.slice(0, quota[region] ?? 0);
-    for (const t of picked) qualifiedVia[t.id] = "direct";
-    direct.push(...picked);
+    qualifiers.push(...sorted.slice(0, quota[region] ?? 0));
+  }
+  const qualifiedIds = new Set(qualifiers.map((t) => t.id));
+
+  // Seeds 1 à 12 : groupes directs. Seeds 13 et suivants : play-in.
+  const orderedQualifiers = [...qualifiers].sort(byTotals);
+  const worldsDirect = orderedQualifiers.slice(0, WORLDS_DIRECT);
+  const qualifiersToPlayIn = orderedQualifiers.slice(WORLDS_DIRECT);
+
+  // LCQ régional : les 8 meilleurs non-qualifiés de chaque région majeure, un vainqueur par région.
+  const lcqEntrantIds = new Set();
+  const lcqWinners = [];
+  const lcq = [];
+  for (const region of LCQ_REGIONS) {
+    const pool = (byRegion[region] ?? [])
+      .filter((t) => !qualifiedIds.has(t.id))
+      .sort(byTotals)
+      .slice(0, LCQ_ENTRANTS);
+    if (pool.length < LCQ_ENTRANTS) continue; // région absente ou trop petite : pas de LCQ
+    const data = new LcqRegional(region, pool.map((t) => t.id)).play(resolverFor(PRESSURE.lcq)).toData();
+    lcq.push(data);
+    lcqWinners.push(teamById[data.winnerId]);
+    for (const t of pool) lcqEntrantIds.add(t.id);
   }
 
-  // LCQ : ticket de repêchage. Les meilleures équipes restantes complètent le tableau.
-  const missing = Math.max(0, WORLDS_SIZE - direct.length);
-  const lcq = teams
-    .filter((t) => !qualifiedVia[t.id])
+  // Places restantes du play-in : meilleurs non-qualifiés hors LCQ, par points.
+  const freeSpots = Math.max(0, PLAY_IN_SIZE - qualifiersToPlayIn.length - lcqWinners.length);
+  const fillers = teams
+    .filter((t) => !qualifiedIds.has(t.id) && !lcqEntrantIds.has(t.id))
     .sort(byTotals)
-    .slice(0, missing);
-  for (const t of lcq) qualifiedVia[t.id] = "qualified_via_lcq";
+    .slice(0, freeSpots);
 
-  const worldsField = [...direct, ...lcq].sort(byTotals);
-  // Seeds = ordre du classement de saison ; le moteur applique le serpentin GSL.
-  const stage = playWorldsStage(
-    "worlds",
+  const playInPool = [...qualifiersToPlayIn, ...lcqWinners, ...fillers].sort(byTotals);
+
+  const qualifiedVia = {};
+  for (const t of worldsDirect) qualifiedVia[t.id] = "direct";
+  for (const t of playInPool) qualifiedVia[t.id] = "play_in";
+
+  const stage = new WorldsStage(
     "World Championship",
-    worldsField.map((t) => t.id),
-    { playSeries: resolverFor(PRESSURE.worlds) }
-  );
+    worldsDirect.map((t) => t.id),
+    playInPool.map((t) => t.id)
+  )
+    .play(resolverFor(PRESSURE.worlds))
+    .toData();
 
   return {
     season,
@@ -229,14 +248,14 @@ export function simulateSeason(teams, { season = 1, rate, onGame } = {}) {
     worlds: {
       quota,
       bonusRegion,
-      direct: direct.map((t) => t.id),
-      lcq: lcq.map((t) => t.id),
+      direct: worldsDirect.map((t) => t.id),
+      playIn: playInPool.map((t) => t.id),
+      lcqWinners: lcqWinners.map((t) => t.id),
+      lcq,
       qualifiedVia,
-      field: worldsField.map((t) => t.id),
+      field: [...worldsDirect, ...playInPool].map((t) => t.id),
       ranking: stage.ranking,
-      // Tours approximatifs pour l'affichage actuel : seul le Top 6 hybride est listé ici.
-      rounds: toRounds(stage.brackets[2].matches),
-      brackets: stage.brackets,
+      stage,
     },
   };
 }

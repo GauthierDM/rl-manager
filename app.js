@@ -10,11 +10,11 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 const STATS = ["mechanics", "gameSpeed", "attack", "defense", "goalkeeping", "mental", "pressure"];
 const STAT_WEIGHTS = { mechanics: 0.2, gameSpeed: 0.15, attack: 0.2, defense: 0.15, goalkeeping: 0.1, mental: 0.2 };
 const PRIZES = [300, 150, 100, 75, 50, 40, 30, 20];
-const REGIONS = ["EU", "NA", "SAM", "OCE", "APAC", "MENA"];
+const REGIONS = ["EU", "NA", "SAM", "OCE", "APAC", "MENA", "SSA"];
 // Display order of the qualification tables: 3 per row, big regions first.
-const REGION_ORDER = ["EU", "NA", "MENA", "SAM", "OCE", "APAC"];
-const REGION_LEVEL = { EU: 72, NA: 68, SAM: 64, OCE: 62, APAC: 58, MENA: 60 };
-const REGION_BUDGET = { EU: 1000, NA: 900, SAM: 700, OCE: 600, APAC: 600, MENA: 700 };
+const REGION_ORDER = ["EU", "NA", "MENA", "SAM", "OCE", "APAC", "SSA"];
+const REGION_LEVEL = { EU: 72, NA: 68, SAM: 64, OCE: 62, APAC: 58, MENA: 60, SSA: 58 };
+const REGION_BUDGET = { EU: 1000, NA: 900, SAM: 700, OCE: 600, APAC: 600, MENA: 700, SSA: 600 };
 const SPONSOR_RATE = 0.3;
 const PLACE_MEDALS = ["🏆", "🥈", "🥉", "🥉"];
 
@@ -40,6 +40,10 @@ let teams = [];
 let user = null;
 let career = null;
 let seasonStats = {};
+
+// Pages of the season viewer (built from the saved season), and the current page index.
+let viewerPages = null;
+let viewerIndex = 0;
 
 // ---------- Data ----------
 function hash(str) {
@@ -219,6 +223,12 @@ async function saveCareer() {
   await sb.from("saves").upsert({ user_id: user.id, state: career ?? {}, updated_at: new Date().toISOString() });
 }
 
+// Last season played with the current format (older saves are ignored).
+const lastSeason = () => career?.history?.filter((h) => h.splits).at(-1) ?? null;
+
+// The season must be watched before the next one can be simulated.
+const mustWatchFirst = () => Boolean(lastSeason()) && career?.seenSeason !== true;
+
 // ---------- Display helpers ----------
 function show(view) {
   ["auth", "setup", "game"].forEach((v) => ($(v).style.display = v === view ? "block" : "none"));
@@ -268,15 +278,16 @@ function matchHTML(m, uid) {
   return `<div class="match${mine}">${row(m.a, m.scoreA, aWon)}${row(m.b, m.scoreB, !aWon)}</div>`;
 }
 
+// Bracket of an Open (Top 8 single elimination, from the old format).
 function bracketHTML(rounds, uid) {
-  if (!rounds.length) return "<p>No matches.</p>";
+  if (!rounds || !rounds.length) return "<p>No matches.</p>";
   const cols = rounds
     .map((matches, r) => `<div class="round"><h5>${roundName(r, rounds.length)}</h5>${matches.map((m) => matchHTML(m, uid)).join("")}</div>`)
     .join("");
   return `<div class="wide"><div class="bracket">${cols}</div></div>`;
 }
 
-// Match produced by the tournament engine (teamA, teamB, label, round, winnerId).
+// One match from the tournament engine (teamA, teamB, label, bestOf, winnerId).
 function engineMatchHTML(m, uid) {
   const row = (id, score) => {
     const t = teamById(id);
@@ -290,23 +301,7 @@ function engineMatchHTML(m, uid) {
   </div>`;
 }
 
-// Displays each engine bracket on its own (GSL groups, Top 6), one column per round.
-function stageMatchesHTML(brackets, uid, titles) {
-  return `<div class="stages">${brackets
-    .map((b, i) => {
-      const byRound = {};
-      for (const m of b.matches) (byRound[m.round] ??= []).push(m);
-      const cols = Object.keys(byRound)
-        .map(Number)
-        .sort((x, y) => x - y)
-        .map((r) => `<div class="round"><h5>Round ${r}</h5>${byRound[r].map((m) => engineMatchHTML(m, uid)).join("")}</div>`)
-        .join("");
-      return `<div class="stage"><h4>${esc(titles[i] ?? b.id)}</h4><div class="wide"><div class="bracket">${cols}</div></div></div>`;
-    })
-    .join("")}</div>`;
-}
-
-// Swiss stage: grouped by round, one line per match, winner in bold.
+// Swiss stage (Opens): grouped by round, one line per match, winner in bold.
 function swissHTML(matches, uid) {
   const byRound = {};
   for (const m of matches) (byRound[m.round] ??= []).push(m);
@@ -337,61 +332,114 @@ function rankingHTML(open, uid) {
   return `<ol class="ranking">${items}</ol>`;
 }
 
-function openCard(open, uid) {
+// One Open, with its ranking, Swiss and playoffs. expanded = all parts open by default.
+function openCard(open, uid, expanded = false) {
   const place = open.ranking.indexOf(uid) + 1;
-  return `<details class="open">
+  const o = expanded ? " open" : "";
+  return `<details class="open"${o}>
     <summary>${esc(open.name)} : ${ordinal(place)}, ${topText(place)} (${open.points[uid] ?? 0} pts)</summary>
     <p class="hint">Format: 16 teams. Swiss BO3 (top 8 advance), then single-elimination playoffs (BO5, final BO7). Teams 9 to 16 are ranked by their Swiss record.</p>
-    <details><summary>Final ranking and points</summary>${rankingHTML(open, uid)}</details>
-    <details><summary>Swiss stage (BO3)</summary>${swissHTML(open.swissMatches, uid)}</details>
-    <details><summary>Playoffs (BO5, final BO7)</summary>${bracketHTML(open.playoffRounds, uid)}</details>
+    <details${o}><summary>Final ranking and points</summary>${rankingHTML(open, uid)}</details>
+    <details${o}><summary>Swiss stage (BO3)</summary>${swissHTML(open.swissMatches, uid)}</details>
+    <details${o}><summary>Playoffs (BO5, final BO7)</summary>${bracketHTML(open.playoffRounds, uid)}</details>
   </details>`;
 }
 
-// Explains, in plain words, why the team is or is not qualified for the Worlds.
-function whyHTML(result, team) {
-  const status = result.worlds.qualifiedVia[team.id];
-  const regionTeams = sortByPoints(teams.filter((t) => t.region === team.region), result.totals);
-  const rank = regionTeams.findIndex((t) => t.id === team.id) + 1;
-  const slots = result.worlds.quota[team.region] ?? 0;
-  const total = result.totals[team.id] ?? 0;
-
-  if (status === "direct") {
-    return `<p>You have ${total} season points. You are ${ordinal(rank)} in ${esc(team.region)}, and ${esc(team.region)} has ${slots} direct Worlds slots, so you qualify directly.</p>`;
-  }
-  if (status === "qualified_via_lcq") {
-    return `<p>You have ${total} season points. You are ${ordinal(rank)} in ${esc(team.region)}, which has ${slots} direct slots, all taken by better teams of your region. You qualify through the LCQ, which fills the empty places with the best remaining teams.</p>`;
-  }
-  return `<p>You have ${total} season points and are ${ordinal(rank)} in ${esc(team.region)}. ${esc(team.region)} has ${slots} direct Worlds slots, all taken by teams with more points than you, so you are not qualified for the Worlds.</p>`;
-}
-
-function summaryHTML(result, team) {
-  const status = result.worlds.qualifiedVia[team.id];
-  const worldsText =
-    status === "direct" ? "Qualified for Worlds (direct)"
-    : status === "qualified_via_lcq" ? "Qualified for Worlds (LCQ)"
-    : "Not qualified for Worlds";
-
-  const splitRows = result.splits
-    .map((s) => {
-      const p = placement(s.major.ranking, team.id);
-      const pts = s.splitPoints[team.id] ?? 0;
-      return `<div class="row"><span class="medal">${p.medal}</span><b>${esc(s.major.name)}</b> : ${p.text} | split points: ${pts}</div>`;
+// ---------- Major and Worlds: groups of 4, double-elimination playoffs ----------
+// Group table: green = Upper QF, yellow = Lower R1, red = eliminated.
+function groupHTML(g, uid) {
+  const rows = g.standings
+    .map((r, i) => {
+      const t = teamById(r.id);
+      const cls = i === 0 ? "adv-upper" : i < 3 ? "adv-lower" : "elim";
+      const mine = r.id === uid ? " mine" : "";
+      const diff = r.gw - r.gl;
+      return `<tr class="${cls}${mine}"><td>${i + 1}</td><td>${logoHTML(t)} ${esc(t.name)}</td><td>${r.w}-${r.l}</td><td>${diff > 0 ? "+" : ""}${diff}</td></tr>`;
     })
     .join("");
+  const matches = g.matches
+    .map((m) => {
+      const a = teamById(m.teamA), b = teamById(m.teamB);
+      const aWin = m.winnerId === m.teamA;
+      const mine = m.teamA === uid || m.teamB === uid ? " mine" : "";
+      return `<div class="gm${mine}"><span class="gm-r">R${m.round}</span><span class="${aWin ? "w" : ""}">${esc(a.name)}</span><b>${m.scoreA}-${m.scoreB}</b><span class="${aWin ? "" : "w"}">${esc(b.name)}</span></div>`;
+    })
+    .join("");
+  return `<div class="group">
+    <h5>Group ${esc(g.id)}</h5>
+    <table class="group-table"><tr><th>#</th><th>Team</th><th>W-L</th><th>Games</th></tr>${rows}</table>
+    <div class="group-matches">${matches}</div>
+  </div>`;
+}
 
-  const w = placement(result.worlds.ranking, team.id);
-  const wRow = status ? `<div class="row"><span class="medal">${w.medal}</span><b>World Championship</b> : ${w.text}</div>` : "";
+// Columns of the double-elimination playoffs, in reading order (Major and Worlds).
+const PO_COLUMNS = [
+  ["Upper QF", ["uq1", "uq2"]],
+  ["Lower R1", ["lr1a", "lr1b", "lr1c", "lr1d"]],
+  ["Lower R2", ["lr2a", "lr2b"]],
+  ["Lower QF", ["lqf1", "lqf2"]],
+  ["Semifinals", ["sf1", "sf2"]],
+  ["Grand Final", ["gf"]],
+];
 
-  const mvp = result.mvp;
-  const mvpBox = mvp
-    ? `<div class="mvp-box">🏆 Season MVP: <b>${esc(players[mvp]?.name ?? "?")}</b> (${esc(players[mvp]?.teamName ?? "")}) | note ${noteOf(result.players[mvp])} / 10</div>`
-    : "";
+// Columns of the Worlds play-in.
+const PLAYIN_COLUMNS = [
+  ["Upper QF", ["pu1", "pu2", "pu3", "pu4"]],
+  ["Upper SF", ["pus1", "pus2"]],
+  ["Lower QF", ["pl1", "pl2"]],
+  ["Lower SF", ["pls1", "pls2"]],
+];
 
-  return `<p>Season ${result.season} champion: <b>${esc(teamById(result.champion).name)}</b></p>
-    <p>Season total points: <b>${result.totals[team.id] ?? 0}</b> | ${worldsText}</p>
-    ${whyHTML(result, team)}
-    ${mvpBox}${splitRows}${wRow}`;
+// Columns of a regional LCQ (8 teams, Top 8).
+const LCQ_COLUMNS = [
+  ["Quarter-finals", ["qf1", "qf2", "qf3", "qf4"]],
+  ["Semifinals", ["sf1", "sf2"]],
+  ["Final", ["final"]],
+];
+
+function playoffsHTML(matches, uid, columns = PO_COLUMNS) {
+  const byId = Object.fromEntries(matches.map((m) => [m.id, m]));
+  const cols = columns
+    .map(
+      ([title, ids]) =>
+        `<div class="po-col"><h5>${title}</h5>${ids.filter((id) => byId[id]).map((id) => engineMatchHTML(byId[id], uid)).join("")}</div>`
+    )
+    .join("");
+  return `<div class="wide"><div class="playoffs">${cols}</div></div>`;
+}
+
+// Groups then playoffs (Major, and Worlds without the play-in).
+function groupsPlayoffsHTML(stage, uid, title) {
+  const groups = stage.groups.map((g) => groupHTML(g, uid)).join("");
+  return `<div class="stage-view">
+    <h4>${esc(title)} · Group stage</h4>
+    <div class="groups">${groups}</div>
+    <h4>${esc(title)} · Playoffs</h4>
+    ${playoffsHTML(stage.playoffs.matches, uid)}
+  </div>`;
+}
+
+// Play-in of the Worlds (8 teams, 4 reach the groups).
+function playInHTML(stage, uid) {
+  if (!stage.playIn) return "<p>No play-in data.</p>";
+  return `<div class="stage-view">
+    <h4>Play-in</h4>
+    ${playoffsHTML(stage.playIn.matches, uid, PLAYIN_COLUMNS)}
+    <p class="hint">The 4 play-in winners of the upper and lower brackets reach the groups.</p>
+  </div>`;
+}
+
+// Summary of every regional LCQ of the season: winner, then the bracket.
+function lcqSummaryHTML(result, uid) {
+  if (!result.worlds.lcq?.length) return "<p>No LCQ this season.</p>";
+  return result.worlds.lcq
+    .map(
+      (l) => `<div class="card region">
+        <h4>LCQ ${esc(l.region)} · winner: ${esc(teamById(l.winnerId).name)}</h4>
+        ${playoffsHTML(l.bracket.matches, uid, LCQ_COLUMNS)}
+      </div>`
+    )
+    .join("");
 }
 
 // ---------- Qualification tables, one per region ----------
@@ -438,7 +486,7 @@ function worldsRegionCard(result, team, region) {
   const list = sortByPoints(teams.filter((t) => t.region === region), result.totals);
   const rows = list
     .map((t, i) => {
-      const status = q[t.id] === "direct" ? "Worlds" : q[t.id] === "qualified_via_lcq" ? "LCQ" : "";
+      const status = q[t.id] === "direct" ? "Worlds" : q[t.id] === "play_in" ? "Play-in" : "";
       return `<tr${rowCls(t, team, !!status)}><td>${i + 1}</td><td>${logoHTML(t)} ${esc(t.name)}</td><td>${result.totals[t.id] ?? 0}</td><td>${result.majorPoints[t.id] ?? 0}</td><td>${status}</td></tr>`;
     })
     .join("");
@@ -446,48 +494,197 @@ function worldsRegionCard(result, team, region) {
   const bonus = result.worlds.bonusRegion === region ? " (includes the bonus slot)" : "";
   return regionCard(
     esc(region),
-    `${quota} direct Worlds slot(s)${bonus}. Total = 6 Opens + 2 Majors.`,
+    `${quota} Worlds qualifier(s)${bonus}. Top 12 qualifiers go direct, the others play the play-in. Total = 6 Opens + 2 Majors.`,
     ["#", "Team", "Total", "Majors", "Worlds"],
     rows
   );
 }
 
-// ---------- Season zone, full width: Split 1, Split 2, Worlds ----------
-function splitBlockHTML(result, team, s) {
-  const opens = s.opens.filter((o) => o.region === team.region).map((o) => openCard(o, team.id)).join("");
-  const tables = REGION_ORDER.filter((r) => teams.some((t) => t.region === r))
-    .map((r) => majorRegionCard(result, s, team, r))
-    .join("");
-  return `<section class="card split-block">
-    <h3>Split ${s.split}</h3>
-    <h4>Opens (${esc(team.region)})</h4>
-    ${opens}
-    <h4>Major ${s.split} qualification (split ${s.split} points)</h4>
-    <div class="tables">${tables}</div>
-    <h4>Major ${s.split} bracket</h4>
-    <p class="hint">Teams: ${s.major.field.map((id) => esc(teamById(id).name)).join(", ")}</p>
-    ${bracketHTML(s.major.rounds, team.id)}
-  </section>`;
-}
-
-function worldsBlockHTML(result, team) {
+function worldsTablesHTML(result, team) {
   const tables = REGION_ORDER.filter((r) => teams.some((t) => t.region === r))
     .map((r) => worldsRegionCard(result, team, r))
     .join("");
-  const stages = result.worlds.brackets
-    ? stageMatchesHTML(result.worlds.brackets, team.id, ["Group A (GSL)", "Group B (GSL)", "Top 6 playoffs"])
-    : "";
-  return `<section class="card split-block">
-    <h3>World Championship</h3>
-    <h4>Worlds qualification (total season points)</h4>
-    <div class="tables">${tables}</div>
-    <h4>Worlds stages</h4>
-    ${stages}
-  </section>`;
+  return `<h4>Worlds qualification (total season points)</h4><div class="tables">${tables}</div>`;
 }
 
-function seasonsHTML(result, team) {
-  return result.splits.map((s) => splitBlockHTML(result, team, s)).join("") + worldsBlockHTML(result, team);
+function majorTablesHTML(result, split, team) {
+  const tables = REGION_ORDER.filter((r) => teams.some((t) => t.region === r))
+    .map((r) => majorRegionCard(result, split, team, r))
+    .join("");
+  return `<h4>Major ${split.split} qualification (split ${split.split} points)</h4><div class="tables">${tables}</div>`;
+}
+
+// ---------- Season viewer: one page per step ----------
+// Each page is { title, html() }. Pages are built from the saved season.
+
+function openPageHTML(open, uid) {
+  return openCard(open, uid, true);
+}
+
+function majorPageHTML(result, split, team) {
+  return `${majorTablesHTML(result, split, team)}
+    <p class="hint">Teams: ${split.major.field.map((id) => esc(teamById(id).name)).join(", ")}</p>
+    ${groupsPlayoffsHTML(split.major.stage, team.id, split.major.name)}`;
+}
+
+// LCQ of the user's region: the user is an entrant.
+function lcqPageHTML(l, team) {
+  const won = l.winnerId === team.id;
+  const text = won
+    ? "Your team wins the LCQ and goes to the Worlds play-in."
+    : `Your team is eliminated. Winner: ${esc(teamById(l.winnerId).name)}.`;
+  return `<p>${text}</p>${playoffsHTML(l.bracket.matches, team.id, LCQ_COLUMNS)}`;
+}
+
+// Worlds page for a qualified team: groups and playoffs (play-in and LCQ are separate pages).
+function worldsPageHTML(result, team) {
+  return `${worldsTablesHTML(result, team)}${groupsPlayoffsHTML(result.worlds.stage, team.id, "World Championship")}`;
+}
+
+// Worlds page for a team that did not qualify: everything in one page, as a spectator.
+function worldsSpectatorHTML(result, team) {
+  return `<p>Your team is not in the Worlds. You are watching the whole event.</p>
+    <h4>LCQ summary</h4>${lcqSummaryHTML(result, team.id)}
+    <h4>Play-in</h4>${playInHTML(result.worlds.stage, team.id)}
+    ${worldsTablesHTML(result, team)}
+    ${groupsPlayoffsHTML(result.worlds.stage, team.id, "World Championship")}`;
+}
+
+function buildPages(result, team) {
+  const uid = team.id;
+  const pages = [];
+
+  for (const s of result.splits) {
+    s.opens
+      .filter((o) => o.region === team.region)
+      .forEach((o) => pages.push({ title: `Split ${s.split} · ${o.name}`, html: () => openPageHTML(o, uid) }));
+    if (s.major.field.includes(uid)) {
+      pages.push({ title: `Split ${s.split} · ${s.major.name}`, html: () => majorPageHTML(result, s, team) });
+    }
+  }
+
+  // Your regional LCQ, if you were an entrant.
+  const lcqMine = result.worlds.lcq?.find((l) => l.bracket.matches.some((m) => m.teamA === uid || m.teamB === uid));
+  if (lcqMine) pages.push({ title: `LCQ · ${lcqMine.region}`, html: () => lcqPageHTML(lcqMine, team) });
+
+  const status = result.worlds.qualifiedVia[uid];
+  if (status) {
+    // Qualified (direct or play-in): one page each for the LCQ summary, the play-in and the Worlds.
+    if (result.worlds.lcq?.length) {
+      pages.push({ title: "LCQ · summary", html: () => lcqSummaryHTML(result, uid) });
+    }
+    pages.push({ title: "Worlds · Play-in", html: () => playInHTML(result.worlds.stage, uid) });
+    pages.push({ title: "World Championship", html: () => worldsPageHTML(result, team) });
+  } else {
+    // Not qualified: play-in, LCQ and Worlds stay together in one page.
+    pages.push({ title: "World Championship (spectator)", html: () => worldsSpectatorHTML(result, team) });
+  }
+  return pages;
+}
+
+function renderPage(i) {
+  if (!viewerPages?.length) return;
+  viewerIndex = Math.max(0, Math.min(i, viewerPages.length - 1));
+  const page = viewerPages[viewerIndex];
+  $("home").style.display = "none";
+  $("viewer").style.display = "block";
+  $("v-progress").textContent = `${viewerIndex + 1} / ${viewerPages.length}`;
+  $("v-title").textContent = page.title;
+  $("v-content").innerHTML = page.html();
+  $("v-prev").disabled = viewerIndex === 0;
+  $("v-next").textContent = viewerIndex === viewerPages.length - 1 ? "End" : "Next";
+  window.scrollTo(0, 0);
+}
+
+// Moves to a page. The URL hash follows, so the browser back button works.
+function goPage(i) {
+  location.hash = `p${i}`;
+  renderPage(i);
+}
+
+// Opening the viewer marks the season as watched, which unlocks the next simulation.
+async function markSeasonSeen() {
+  if (career && career.seenSeason !== true) {
+    career.seenSeason = true;
+    await saveCareer();
+    $("sim").disabled = false;
+  }
+}
+
+async function enterViewer(i = 0) {
+  if (!lastSeason()) return;
+  viewerPages ??= buildPages(lastSeason(), teamById(career.userTeamId));
+  await markSeasonSeen();
+  goPage(i);
+}
+
+function closeViewer() {
+  viewerPages = null;
+  $("viewer").style.display = "none";
+  $("home").style.display = "block";
+}
+
+function exitViewer() {
+  if (location.hash) location.hash = "";
+  closeViewer();
+}
+
+// Back and forward buttons of the browser, and manual hash changes.
+window.addEventListener("hashchange", () => {
+  const m = location.hash.match(/^#p(\d+)$/);
+  if (m && lastSeason()) {
+    viewerPages ??= buildPages(lastSeason(), teamById(career.userTeamId));
+    renderPage(+m[1]);
+  } else {
+    closeViewer();
+  }
+});
+
+// ---------- Home: summary, roster, leaders, all players ----------
+function summaryHTML(result, team) {
+  const status = result.worlds.qualifiedVia[team.id];
+  const worldsText =
+    status === "direct" ? "Qualified for Worlds (direct)"
+    : status === "play_in" ? "Worlds play-in"
+    : "Not qualified for Worlds";
+
+  const splitRows = result.splits
+    .map((s) => {
+      const p = placement(s.major.ranking, team.id);
+      const pts = s.splitPoints[team.id] ?? 0;
+      return `<div class="row"><span class="medal">${p.medal}</span><b>${esc(s.major.name)}</b> : ${p.text} | split points: ${pts}</div>`;
+    })
+    .join("");
+
+  const w = placement(result.worlds.ranking, team.id);
+  const wRow = status ? `<div class="row"><span class="medal">${w.medal}</span><b>World Championship</b> : ${w.text}</div>` : "";
+
+  const mvp = result.mvp;
+  const mvpBox = mvp
+    ? `<div class="mvp-box">🏆 Season MVP: <b>${esc(players[mvp]?.name ?? "?")}</b> (${esc(players[mvp]?.teamName ?? "")}) | note ${noteOf(result.players[mvp])} / 10</div>`
+    : "";
+
+  return `<p>Season ${result.season} champion: <b>${esc(teamById(result.champion).name)}</b></p>
+    <p>Season total points: <b>${result.totals[team.id] ?? 0}</b> | ${worldsText}</p>
+    ${whyHTML(result, team)}
+    ${mvpBox}${splitRows}${wRow}`;
+}
+
+// Explains, in plain words, why the team is or is not qualified for the Worlds.
+function whyHTML(result, team) {
+  const status = result.worlds.qualifiedVia[team.id];
+  const regionTeams = sortByPoints(teams.filter((t) => t.region === team.region), result.totals);
+  const rank = regionTeams.findIndex((t) => t.id === team.id) + 1;
+  const quota = result.worlds.quota[team.region] ?? 0;
+  const total = result.totals[team.id] ?? 0;
+
+  if (status === "direct") {
+    return `<p>You have ${total} season points. You are ${ordinal(rank)} in ${esc(team.region)}, which has ${quota} Worlds qualifier(s). The 12 best qualifiers by season points go straight to the groups, so you qualify directly.</p>`;
+  }
+  if (status === "play_in") {
+    return `<p>You have ${total} season points. You are ${ordinal(rank)} in ${esc(team.region)}. You are not among the 12 best qualifiers, so you play the Worlds play-in: 4 of the 8 play-in teams reach the groups.</p>`;
+  }
+  return `<p>You have ${total} season points and are ${ordinal(rank)} in ${esc(team.region)}. ${esc(team.region)} has ${quota} Worlds qualifier(s), and you did not earn one.</p>`;
 }
 
 function rosterHTML(team, sp) {
@@ -538,6 +735,7 @@ function allPlayersHTML(sp) {
 }
 
 function render() {
+  closeViewer();
   if (!career) {
     show("setup");
     $("team-select").innerHTML = REGIONS.map((r) => {
@@ -549,13 +747,13 @@ function render() {
   }
   show("game");
   const team = teamById(career.userTeamId);
-  // Only V3 seasons have splits. Older saves are ignored here.
-  const last = career.history.filter((h) => h.splits).at(-1) ?? null;
+  const last = lastSeason();
   const sp = last?.players ?? {};
   $("team-title").textContent = `${team.name}: Season ${career.season}`;
   $("team-info").textContent = `Budget: $${Math.round(career.budgets[team.id])}K | Salary cost per season: $${salaryCost(team)}K`;
+  $("view-season").style.display = last ? "inline-block" : "none";
+  $("sim").disabled = mustWatchFirst();
   $("summary").innerHTML = last ? summaryHTML(last, team) : "<p>No season played yet.</p>";
-  $("seasons").innerHTML = last ? seasonsHTML(last, team) : "";
   $("roster").innerHTML = rosterHTML(team, sp);
   $("leaders").innerHTML = last ? leadersHTML(sp) : "";
   $("all-players").innerHTML = allPlayersHTML(sp);
@@ -587,6 +785,7 @@ $("new-career").onclick = async () => {
     budgets: Object.fromEntries(teams.map((t) => [t.id, t.budget])),
     worlds: {},
     history: [],
+    seenSeason: true,
   };
   await saveCareer();
   render();
@@ -599,7 +798,13 @@ $("reset").onclick = async () => {
   render();
 };
 
+$("view-season").onclick = () => enterViewer(0);
+$("v-back").onclick = () => exitViewer();
+$("v-prev").onclick = () => goPage(viewerIndex - 1);
+$("v-next").onclick = () => (viewerIndex === viewerPages.length - 1 ? exitViewer() : goPage(viewerIndex + 1));
+
 $("sim").onclick = async () => {
+  if (mustWatchFirst()) return;
   $("sim").disabled = true;
   $("sim").textContent = "Simulating...";
 
@@ -634,10 +839,13 @@ $("sim").onclick = async () => {
     mvp,
   });
   career.season++;
+  // A new season is unlocked only after it has been watched.
+  career.seenSeason = false;
 
   await saveCareer();
   $("sim").disabled = false;
   $("sim").textContent = "Simulate season";
+  if (location.hash) location.hash = "";
   render();
 };
 
@@ -651,6 +859,9 @@ async function start() {
   const { data: row } = await sb.from("saves").select("state").eq("user_id", user.id).maybeSingle();
   career = row?.state?.userTeamId ? row.state : null;
   render();
+  // Reopen the viewer at the same page after a reload (e.g. "#p3").
+  const m = location.hash.match(/^#p(\d+)$/);
+  if (m) enterViewer(+m[1]);
 }
 
 start();
